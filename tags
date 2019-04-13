@@ -1,0 +1,556 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ALIGNMENT	slab.h	/^#define ALIGNMENT /;"	d
+API_NAME_GEN	common.h	/^#define API_NAME_GEN(/;"	d
+API_NAME_GEN	common.h	/^#undef API_NAME_GEN$/;"	d
+API_RET	common.h	/^enum API_RET{$/;"	g
+API_RET_GEN	common.h	/^#define API_RET_GEN(/;"	d
+API_RET_GEN	common.h	/^#undef API_RET_GEN$/;"	d
+API_RET_MAP	common.h	/^	API_RET_MAP(API_RET_GEN)$/;"	e	enum:API_RET
+API_RET_MAP	common.h	/^#define API_RET_MAP(/;"	d
+API_STR_GEN	common.h	/^#define API_STR_GEN(/;"	d
+API_STR_GEN	common.h	/^#undef API_STR_GEN$/;"	d
+CC	Makefile	/^CC = gcc -g$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -std=c99$/;"	m
+CJSON_EXPORT_SYMBOLS	cJSON.h	/^#define CJSON_EXPORT_SYMBOLS$/;"	d
+CJSON_NESTING_LIMIT	cJSON.h	/^#define CJSON_NESTING_LIMIT /;"	d
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_Compare(const cJSON * const a, const cJSON * const b, const cJSON_bool case_sensitive)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_HasObjectItem(const cJSON *object, const char *string)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsArray(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsBool(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsFalse(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsInvalid(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNull(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNumber(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsObject(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsRaw(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsString(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsTrue(const cJSON * const item)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_PrintPreallocated(cJSON *item, char *buf, const int len, const cJSON_bool fmt)$/;"	f
+CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemViaPointer(cJSON * const parent, cJSON * const item, cJSON * replacement)$/;"	f
+CJSON_PUBLIC	cJSON.h	/^#define CJSON_PUBLIC(/;"	d
+CJSON_VERSION_MAJOR	cJSON.h	/^#define CJSON_VERSION_MAJOR /;"	d
+CJSON_VERSION_MINOR	cJSON.h	/^#define CJSON_VERSION_MINOR /;"	d
+CJSON_VERSION_PATCH	cJSON.h	/^#define CJSON_VERSION_PATCH /;"	d
+ERR	common.h	/^enum ERR{$/;"	g
+ERROR_GEN	common.h	/^#define ERROR_GEN(/;"	d
+ERROR_GEN	common.h	/^#undef ERROR_GEN$/;"	d
+ERROR_MAP	common.h	/^	ERROR_MAP(ERROR_GEN)$/;"	e	enum:ERR
+ERROR_MAP	common.h	/^#define ERROR_MAP(/;"	d
+ERROR_NAME_GEN	common.h	/^#define ERROR_NAME_GEN(/;"	d
+ERROR_NAME_GEN	common.h	/^#undef ERROR_NAME_GEN$/;"	d
+ERROR_STR_GEN	common.h	/^#define ERROR_STR_GEN(/;"	d
+ERROR_STR_GEN	common.h	/^#undef ERROR_STR_GEN$/;"	d
+INITIAL_SIZE	hashmap.c	/^#define INITIAL_SIZE /;"	d	file:
+L	log.c	/^} L;$/;"	v	typeref:struct:__anon4	file:
+LIBS	Makefile	/^LIBS = -lpthread$/;"	m
+LOG_DEBUG	log.h	/^enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };$/;"	e	enum:__anon5
+LOG_ERROR	log.h	/^enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };$/;"	e	enum:__anon5
+LOG_FATAL	log.h	/^enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };$/;"	e	enum:__anon5
+LOG_H	log.h	/^#define LOG_H$/;"	d
+LOG_INFO	log.h	/^enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };$/;"	e	enum:__anon5
+LOG_TRACE	log.h	/^enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };$/;"	e	enum:__anon5
+LOG_VERSION	log.h	/^#define LOG_VERSION /;"	d
+LOG_WARN	log.h	/^enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };$/;"	e	enum:__anon5
+LV_ALERT	ncx_log.h	/^#define LV_ALERT /;"	d
+LV_DEBUG	ncx_log.h	/^#define LV_DEBUG /;"	d
+LV_ERROR	ncx_log.h	/^#define LV_ERROR /;"	d
+LV_INFO	ncx_log.h	/^#define LV_INFO /;"	d
+LV_TRACE	ncx_log.h	/^#define LV_TRACE /;"	d
+MAP_FULL	hashmap.h	/^#define MAP_FULL /;"	d
+MAP_MISSING	hashmap.h	/^#define MAP_MISSING /;"	d
+MAP_OK	hashmap.h	/^#define MAP_OK /;"	d
+MAP_OMEM	hashmap.h	/^#define MAP_OMEM /;"	d
+MAX_CHAIN_LENGTH	hashmap.c	/^#define MAX_CHAIN_LENGTH /;"	d	file:
+MAX_KEY_LENGTH	hashmap.c	/^#define MAX_KEY_LENGTH /;"	d	file:
+MAX_QUEUE	threadpool.h	/^#define MAX_QUEUE /;"	d
+MAX_THREADS	threadpool.h	/^#define MAX_THREADS /;"	d
+NCX_ALIGNMENT	ncx_core.h	/^#define NCX_ALIGNMENT /;"	d
+OK	common.h	/^#define OK /;"	d
+PFany	hashmap.h	/^typedef int (*PFany)(any_t, any_t);$/;"	t
+QUEUE	queue.h	/^typedef void *QUEUE[2];$/;"	t
+QUEUE_ADD	queue.h	/^#define QUEUE_ADD(/;"	d
+QUEUE_DATA	queue.h	/^#define QUEUE_DATA(/;"	d
+QUEUE_EMPTY	queue.h	/^#define QUEUE_EMPTY(/;"	d
+QUEUE_FOREACH	queue.h	/^#define QUEUE_FOREACH(/;"	d
+QUEUE_HEAD	queue.h	/^#define QUEUE_HEAD(/;"	d
+QUEUE_H_	queue.h	/^#define QUEUE_H_$/;"	d
+QUEUE_INIT	queue.h	/^#define QUEUE_INIT(/;"	d
+QUEUE_INSERT_HEAD	queue.h	/^#define QUEUE_INSERT_HEAD(/;"	d
+QUEUE_INSERT_TAIL	queue.h	/^#define QUEUE_INSERT_TAIL(/;"	d
+QUEUE_MOVE	queue.h	/^#define QUEUE_MOVE(/;"	d
+QUEUE_NEXT	queue.h	/^#define QUEUE_NEXT(/;"	d
+QUEUE_NEXT_PREV	queue.h	/^#define QUEUE_NEXT_PREV(/;"	d
+QUEUE_PREV	queue.h	/^#define QUEUE_PREV(/;"	d
+QUEUE_PREV_NEXT	queue.h	/^#define QUEUE_PREV_NEXT(/;"	d
+QUEUE_REMOVE	queue.h	/^#define QUEUE_REMOVE(/;"	d
+QUEUE_SPLIT	queue.h	/^#define QUEUE_SPLIT(/;"	d
+RESULT_BUFFER_LEN_MAX	sched.h	/^#define RESULT_BUFFER_LEN_MAX /;"	d
+SLAB_BIG	slab.c	/^#define SLAB_BIG /;"	d	file:
+SLAB_BUSY	slab.c	/^#define SLAB_BUSY /;"	d	file:
+SLAB_EXACT	slab.c	/^#define SLAB_EXACT /;"	d	file:
+SLAB_MAP_MASK	slab.c	/^#define SLAB_MAP_MASK /;"	d	file:
+SLAB_MAP_SHIFT	slab.c	/^#define SLAB_MAP_SHIFT /;"	d	file:
+SLAB_PAGE	slab.c	/^#define SLAB_PAGE /;"	d	file:
+SLAB_PAGE_BUSY	slab.c	/^#define SLAB_PAGE_BUSY /;"	d	file:
+SLAB_PAGE_FREE	slab.c	/^#define SLAB_PAGE_FREE /;"	d	file:
+SLAB_PAGE_MASK	slab.c	/^#define SLAB_PAGE_MASK /;"	d	file:
+SLAB_PAGE_START	slab.c	/^#define SLAB_PAGE_START /;"	d	file:
+SLAB_SHIFT_MASK	slab.c	/^#define SLAB_SHIFT_MASK /;"	d	file:
+SLAB_SMALL	slab.c	/^#define SLAB_SMALL /;"	d	file:
+SOURCE_BUFFER_LEN_MAX	sched.h	/^#define SOURCE_BUFFER_LEN_MAX /;"	d
+UUID4_EFAILURE	uuid4.h	/^  UUID4_EFAILURE = -1$/;"	e	enum:__anon12
+UUID4_ESUCCESS	uuid4.h	/^  UUID4_ESUCCESS =  0,$/;"	e	enum:__anon12
+UUID4_H	uuid4.h	/^#define UUID4_H$/;"	d
+UUID4_LEN	uuid4.h	/^#define UUID4_LEN /;"	d
+UUID4_VERSION	uuid4.h	/^#define UUID4_VERSION /;"	d
+_CRT_SECURE_NO_DEPRECATE	cJSON.c	/^#define _CRT_SECURE_NO_DEPRECATE$/;"	d	file:
+_NCX_CORE_H_	ncx_core.h	/^#define _NCX_CORE_H_$/;"	d
+_NCX_LOCK_H_	ncx_lock.h	/^#define _NCX_LOCK_H_$/;"	d
+_NCX_LOG_H_	ncx_log.h	/^#define _NCX_LOG_H_$/;"	d
+_THREADPOOL_H_	threadpool.h	/^#define _THREADPOOL_H_$/;"	d
+__BINLOG_H	binlog.h	/^#define __BINLOG_H$/;"	d
+__COMMON_H	common.h	/^#define __COMMON_H$/;"	d
+__HASHMAP_H__	hashmap.h	/^#define __HASHMAP_H__$/;"	d
+__POLICY_H	policy.h	/^#define __POLICY_H$/;"	d
+__REPOSITORY_H	repository.h	/^#define __REPOSITORY_H$/;"	d
+__SCHEDULER_H	sched.h	/^#define __SCHEDULER_H$/;"	d
+__SLAB_H	slab.h	/^#define __SLAB_H$/;"	d
+__TOOLS_H	tools.h	/^#define __TOOLS_H$/;"	d
+__WINDOWS__	cJSON.h	/^#define __WINDOWS__$/;"	d
+_hashmap_element	hashmap.c	/^typedef struct _hashmap_element{$/;"	s	file:
+_hashmap_map	hashmap.c	/^typedef struct _hashmap_map{$/;"	s	file:
+add_item_to_array	cJSON.c	/^static cJSON_bool add_item_to_array(cJSON *array, cJSON *item)$/;"	f	file:
+add_item_to_object	cJSON.c	/^static cJSON_bool add_item_to_object(cJSON * const object, const char * const string, cJSON * const item, const internal_hooks * const hooks, const cJSON_bool constant_key)$/;"	f	file:
+addr	sched.h	/^	struct sockaddr_in addr;$/;"	m	struct:sched_slaver	typeref:struct:sched_slaver::sockaddr_in
+addr	slab.h	/^	void *addr;$/;"	m	struct:slab_pool
+alert	ncx_log.h	/^#define alert(/;"	d
+align	slab.h	/^#define align(/;"	d
+align_ptr	slab.h	/^#define align_ptr(/;"	d
+allocate	cJSON.c	/^    void *(*allocate)(size_t size);$/;"	m	struct:internal_hooks	file:
+any_t	hashmap.h	/^typedef void *any_t;$/;"	t
+api_code_desc	common.h	/^const char *api_code_desc(enum API_RET code){$/;"	f
+api_code_name	common.h	/^const char * api_code_name(enum API_RET code){$/;"	f
+argument	threadpool.h	/^    void *argument;$/;"	m	struct:__anon9
+array	cJSON.h	/^CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array);$/;"	v
+b_big	slab.h	/^	size_t b_small, b_exact, b_big, b_page;		 \/* 四种slab占用的byte数 *\/$/;"	m	struct:slab_stat
+b_exact	slab.h	/^	size_t b_small, b_exact, b_big, b_page;		 \/* 四种slab占用的byte数 *\/$/;"	m	struct:slab_stat
+b_page	slab.h	/^	size_t b_small, b_exact, b_big, b_page;		 \/* 四种slab占用的byte数 *\/$/;"	m	struct:slab_stat
+b_small	slab.h	/^	size_t b_small, b_exact, b_big, b_page;		 \/* 四种slab占用的byte数 *\/$/;"	m	struct:slab_stat
+binlog	binlog.h	/^struct binlog{$/;"	s
+boolean	cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateBool(cJSON_bool boolean);$/;"	v
+buffer	cJSON.c	/^    unsigned char *buffer;$/;"	m	struct:__anon3	file:
+buffer_at_offset	cJSON.c	/^#define buffer_at_offset(/;"	d	file:
+buffer_skip_whitespace	cJSON.c	/^static parse_buffer *buffer_skip_whitespace(parse_buffer * const buffer)$/;"	f	file:
+c	cJSON.h	/^CJSON_PUBLIC(void) cJSON_Delete(cJSON *c);$/;"	v
+cJSON	cJSON.h	/^typedef struct cJSON$/;"	s
+cJSON	cJSON.h	/^} cJSON;$/;"	t	typeref:struct:cJSON
+cJSON_AddArrayToObject	cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddArrayToObject(cJSON * const object, const char * const name)$/;"	f
+cJSON_AddBoolToObject	cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddBoolToObject(cJSON * const object, const char * const name, const cJSON_bool boolean)$/;"	f
+cJSON_AddFalseToObject	cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddFalseToObject(cJSON * const object, const char * const name)$/;"	f
+cJSON_AddItemReferenceToArray	cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemReferenceToArray(cJSON *array, cJSON *item)$/;"	f
+cJSON_AddItemReferenceToObject	cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemReferenceToObject(cJSON *object, const char *string, cJSON *item)$/;"	f
+cJSON_AddItemToArray	cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemToArray(cJSON *array, cJSON *item)$/;"	f
+cJSON_AddItemToObject	cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemToObject(cJSON *object, const char *string, cJSON *item)$/;"	f
+cJSON_AddItemToObjectCS	cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemToObjectCS(cJSON *object, const char *string, cJSON *item)$/;"	f
+cJSON_AddNullToObject	cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddNullToObject(cJSON * const object, const char * const name)$/;"	f
+cJSON_AddNumberToObject	cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddNumberToObject(cJSON * const object, const char * const name, const double number)$/;"	f
+cJSON_AddObjectToObject	cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddObjectToObject(cJSON * const object, const char * const name)$/;"	f
+cJSON_AddRawToObject	cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddRawToObject(cJSON * const object, const char * const name, const char * const raw)$/;"	f
+cJSON_AddStringToObject	cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddStringToObject(cJSON * const object, const char * const name, const char * const string)$/;"	f
+cJSON_AddTrueToObject	cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddTrueToObject(cJSON * const object, const char * const name)$/;"	f
+cJSON_Array	cJSON.h	/^#define cJSON_Array /;"	d
+cJSON_ArrayForEach	cJSON.h	/^#define cJSON_ArrayForEach(/;"	d
+cJSON_CreateArray	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArray(void)$/;"	f
+cJSON_CreateArrayReference	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child) {$/;"	f
+cJSON_CreateBool	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateBool(cJSON_bool b)$/;"	f
+cJSON_CreateDoubleArray	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateDoubleArray(const double *numbers, int count)$/;"	f
+cJSON_CreateFalse	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateFalse(void)$/;"	f
+cJSON_CreateFloatArray	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateFloatArray(const float *numbers, int count)$/;"	f
+cJSON_CreateIntArray	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateIntArray(const int *numbers, int count)$/;"	f
+cJSON_CreateNull	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateNull(void)$/;"	f
+cJSON_CreateNumber	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateNumber(double num)$/;"	f
+cJSON_CreateObject	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObject(void)$/;"	f
+cJSON_CreateObjectReference	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child)$/;"	f
+cJSON_CreateRaw	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateRaw(const char *raw)$/;"	f
+cJSON_CreateString	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateString(const char *string)$/;"	f
+cJSON_CreateStringArray	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateStringArray(const char **strings, int count)$/;"	f
+cJSON_CreateStringReference	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateStringReference(const char *string)$/;"	f
+cJSON_CreateTrue	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateTrue(void)$/;"	f
+cJSON_Delete	cJSON.c	/^CJSON_PUBLIC(void) cJSON_Delete(cJSON *item)$/;"	f
+cJSON_DeleteItemFromArray	cJSON.c	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromArray(cJSON *array, int which)$/;"	f
+cJSON_DeleteItemFromObject	cJSON.c	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromObject(cJSON *object, const char *string)$/;"	f
+cJSON_DeleteItemFromObjectCaseSensitive	cJSON.c	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromObjectCaseSensitive(cJSON *object, const char *string)$/;"	f
+cJSON_DetachItemFromArray	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromArray(cJSON *array, int which)$/;"	f
+cJSON_DetachItemFromObject	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObject(cJSON *object, const char *string)$/;"	f
+cJSON_DetachItemFromObjectCaseSensitive	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObjectCaseSensitive(cJSON *object, const char *string)$/;"	f
+cJSON_DetachItemViaPointer	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemViaPointer(cJSON *parent, cJSON * const item)$/;"	f
+cJSON_Duplicate	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_Duplicate(const cJSON *item, cJSON_bool recurse)$/;"	f
+cJSON_False	cJSON.h	/^#define cJSON_False /;"	d
+cJSON_GetArrayItem	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_GetArrayItem(const cJSON *array, int index)$/;"	f
+cJSON_GetArraySize	cJSON.c	/^CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array)$/;"	f
+cJSON_GetErrorPtr	cJSON.c	/^CJSON_PUBLIC(const char *) cJSON_GetErrorPtr(void)$/;"	f
+cJSON_GetObjectItem	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_GetObjectItem(const cJSON * const object, const char * const string)$/;"	f
+cJSON_GetObjectItemCaseSensitive	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_GetObjectItemCaseSensitive(const cJSON * const object, const char * const string)$/;"	f
+cJSON_GetStringValue	cJSON.c	/^CJSON_PUBLIC(char *) cJSON_GetStringValue(cJSON *item) {$/;"	f
+cJSON_Hooks	cJSON.h	/^typedef struct cJSON_Hooks$/;"	s
+cJSON_Hooks	cJSON.h	/^} cJSON_Hooks;$/;"	t	typeref:struct:cJSON_Hooks
+cJSON_InitHooks	cJSON.c	/^CJSON_PUBLIC(void) cJSON_InitHooks(cJSON_Hooks* hooks)$/;"	f
+cJSON_InsertItemInArray	cJSON.c	/^CJSON_PUBLIC(void) cJSON_InsertItemInArray(cJSON *array, int which, cJSON *newitem)$/;"	f
+cJSON_Invalid	cJSON.h	/^#define cJSON_Invalid /;"	d
+cJSON_IsReference	cJSON.h	/^#define cJSON_IsReference /;"	d
+cJSON_Minify	cJSON.c	/^CJSON_PUBLIC(void) cJSON_Minify(char *json)$/;"	f
+cJSON_NULL	cJSON.h	/^#define cJSON_NULL /;"	d
+cJSON_New_Item	cJSON.c	/^static cJSON *cJSON_New_Item(const internal_hooks * const hooks)$/;"	f	file:
+cJSON_Number	cJSON.h	/^#define cJSON_Number /;"	d
+cJSON_Object	cJSON.h	/^#define cJSON_Object /;"	d
+cJSON_Parse	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_Parse(const char *value)$/;"	f
+cJSON_ParseWithOpts	cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_ParseWithOpts(const char *value, const char **return_parse_end, cJSON_bool require_null_terminated)$/;"	f
+cJSON_Print	cJSON.c	/^CJSON_PUBLIC(char *) cJSON_Print(const cJSON *item)$/;"	f
+cJSON_PrintBuffered	cJSON.c	/^CJSON_PUBLIC(char *) cJSON_PrintBuffered(const cJSON *item, int prebuffer, cJSON_bool fmt)$/;"	f
+cJSON_PrintUnformatted	cJSON.c	/^CJSON_PUBLIC(char *) cJSON_PrintUnformatted(const cJSON *item)$/;"	f
+cJSON_Raw	cJSON.h	/^#define cJSON_Raw /;"	d
+cJSON_ReplaceItemInArray	cJSON.c	/^CJSON_PUBLIC(void) cJSON_ReplaceItemInArray(cJSON *array, int which, cJSON *newitem)$/;"	f
+cJSON_ReplaceItemInObject	cJSON.c	/^CJSON_PUBLIC(void) cJSON_ReplaceItemInObject(cJSON *object, const char *string, cJSON *newitem)$/;"	f
+cJSON_ReplaceItemInObjectCaseSensitive	cJSON.c	/^CJSON_PUBLIC(void) cJSON_ReplaceItemInObjectCaseSensitive(cJSON *object, const char *string, cJSON *newitem)$/;"	f
+cJSON_SetIntValue	cJSON.h	/^#define cJSON_SetIntValue(/;"	d
+cJSON_SetNumberHelper	cJSON.c	/^CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number)$/;"	f
+cJSON_SetNumberValue	cJSON.h	/^#define cJSON_SetNumberValue(/;"	d
+cJSON_String	cJSON.h	/^#define cJSON_String /;"	d
+cJSON_StringIsConst	cJSON.h	/^#define cJSON_StringIsConst /;"	d
+cJSON_True	cJSON.h	/^#define cJSON_True /;"	d
+cJSON_Version	cJSON.c	/^CJSON_PUBLIC(const char*) cJSON_Version(void)$/;"	f
+cJSON__h	cJSON.h	/^#define cJSON__h$/;"	d
+cJSON_bool	cJSON.h	/^typedef int cJSON_bool;$/;"	t
+cJSON_free	cJSON.c	/^CJSON_PUBLIC(void) cJSON_free(void *object)$/;"	f
+cJSON_malloc	cJSON.c	/^CJSON_PUBLIC(void *) cJSON_malloc(size_t size)$/;"	f
+cJSON_strdup	cJSON.c	/^static unsigned char* cJSON_strdup(const unsigned char* string, const internal_hooks * const hooks)$/;"	f	file:
+can_access_at_index	cJSON.c	/^#define can_access_at_index(/;"	d	file:
+can_read	cJSON.c	/^#define can_read(/;"	d	file:
+cannot_access_at_index	cJSON.c	/^#define cannot_access_at_index(/;"	d	file:
+case_insensitive_strcmp	cJSON.c	/^static int case_insensitive_strcmp(const unsigned char *string1, const unsigned char *string2)$/;"	f	file:
+cast_away_const	cJSON.c	/^static void* cast_away_const(const void* string)$/;"	f	file:
+child	cJSON.h	/^    struct cJSON *child;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON
+child	cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child);$/;"	v
+child	cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child);$/;"	v
+cjson_min	cJSON.c	/^#define cjson_min(/;"	d	file:
+completed_queue	repository.c	/^	void *completed_queue[2];					\/* *\/$/;"	m	struct:global_repo	file:
+completed_queue_mutex	repository.c	/^	pthread_mutex_t completed_queue_mutex;		\/* *\/$/;"	m	struct:global_repo	file:
+content	cJSON.c	/^    const unsigned char *content;$/;"	m	struct:__anon2	file:
+count	threadpool.h	/^  int count;$/;"	m	struct:threadpool_t
+crc32	hashmap.c	/^unsigned long crc32(const unsigned char *s, unsigned long len)$/;"	f
+crc32_tab	hashmap.c	/^static unsigned long crc32_tab[] = {$/;"	v	file:
+create_reference	cJSON.c	/^static cJSON *create_reference(const cJSON *item, const internal_hooks * const hooks)$/;"	f	file:
+data	hashmap.c	/^	any_t data;$/;"	m	struct:_hashmap_element	file:
+data	hashmap.c	/^	hashmap_element *data;$/;"	m	struct:_hashmap_map	file:
+data	repository.c	/^	void *data;$/;"	m	struct:item	file:
+data_len	repository.c	/^	int data_len;$/;"	m	struct:item	file:
+deallocate	cJSON.c	/^    void (*deallocate)(void *pointer);$/;"	m	struct:internal_hooks	file:
+debug	ncx_log.h	/^#define debug(/;"	d
+depth	cJSON.c	/^    size_t depth; \/* How deeply nested (in arrays\/objects) is the input at the current offset. *\/$/;"	m	struct:__anon2	file:
+depth	cJSON.c	/^    size_t depth; \/* current nesting depth (for formatted printing) *\/$/;"	m	struct:__anon3	file:
+end	slab.h	/^	u_char *end;$/;"	m	struct:slab_pool
+ensure	cJSON.c	/^static unsigned char* ensure(printbuffer * const p, size_t needed)$/;"	f	file:
+epoll_fd	sched.h	/^	int epoll_fd;$/;"	m	struct:sched_master
+error	cJSON.c	/^} error;$/;"	t	typeref:struct:__anon1	file:
+error	ncx_log.h	/^#define error(/;"	d
+error_code_desc	common.h	/^const char *error_code_desc(enum ERR code){$/;"	f
+error_code_name	common.h	/^const char *error_code_name(enum ERR code){$/;"	f
+false	cJSON.c	/^#define false /;"	d	file:
+fifo_queue	repository.c	/^	void *fifo_queue[2];$/;"	m	struct:task	file:
+format	cJSON.c	/^    cJSON_bool format; \/* is this print a formatted print *\/$/;"	m	struct:__anon3	file:
+fp	log.c	/^  FILE *fp;$/;"	m	struct:__anon4	file:
+free	slab.h	/^	struct slab_page free;$/;"	m	struct:slab_pool	typeref:struct:slab_pool::slab_page
+free_fn	cJSON.h	/^      void (*free_fn)(void *ptr);$/;"	m	struct:cJSON_Hooks
+free_page	slab.h	/^	size_t pages, free_page;$/;"	m	struct:slab_stat
+function	threadpool.h	/^    void (*function)(void *);$/;"	m	struct:__anon9
+get_array_item	cJSON.c	/^static cJSON* get_array_item(const cJSON *array, size_t index)$/;"	f	file:
+get_decimal_point	cJSON.c	/^static unsigned char get_decimal_point(void)$/;"	f	file:
+get_object_item	cJSON.c	/^static cJSON *get_object_item(const cJSON * const object, const char * const name, const cJSON_bool case_sensitive)$/;"	f	file:
+global_error	cJSON.c	/^static error global_error = { NULL, 0 };$/;"	v	file:
+global_fifo_queue	repository.c	/^	void *global_fifo_queue[2];$/;"	m	struct:item	file:
+global_hooks	cJSON.c	/^static internal_hooks global_hooks = { internal_malloc, internal_free, internal_realloc };$/;"	v	file:
+global_repo	repository.c	/^struct global_repo{$/;"	s	file:
+global_repo_del	repository.c	/^int global_repo_del(struct global_repo *ps_global){$/;"	f
+global_repo_new	repository.c	/^int global_repo_new(struct global_repo **pps_global){$/;"	f
+global_repository_construct	repository.c	/^int global_repository_construct(void **pp_global){$/;"	f
+global_repository_destruct	repository.c	/^int global_repository_destruct(void *p_global1){$/;"	f
+graceful_shutdown	threadpool.h	/^    graceful_shutdown  = 2$/;"	e	enum:__anon8
+handler_data_read	sched.c	/^int handler_data_read(struct sched_slaver *p_slaver){$/;"	f
+handler_data_write	sched.c	/^int handler_data_write(struct sched_slaver *p_slaver){$/;"	f
+handler_slaver_connection	sched.c	/^int handler_slaver_connection(struct sched_master *p_master){$/;"	f
+handler_slaver_disconnection	sched.c	/^int handler_slaver_disconnection(struct sched_slaver *p_slaver){$/;"	f
+handler_work_done	sched.c	/^int handler_work_done(struct sched_master *p_master){$/;"	f
+hashmap_element	hashmap.c	/^} hashmap_element;$/;"	t	typeref:struct:_hashmap_element	file:
+hashmap_free	hashmap.c	/^void hashmap_free(map_t in){$/;"	f
+hashmap_get	hashmap.c	/^int hashmap_get(map_t in, char* key, any_t *arg){$/;"	f
+hashmap_hash	hashmap.c	/^int hashmap_hash(map_t in, char* key){$/;"	f
+hashmap_hash_int	hashmap.c	/^unsigned int hashmap_hash_int(hashmap_map * m, char* keystring){$/;"	f
+hashmap_iterate	hashmap.c	/^int hashmap_iterate(map_t in, PFany f, any_t item) {$/;"	f
+hashmap_key_exist	hashmap.c	/^int hashmap_key_exist(map_t in, char* key){$/;"	f
+hashmap_length	hashmap.c	/^int hashmap_length(map_t in){$/;"	f
+hashmap_map	hashmap.c	/^} hashmap_map;$/;"	t	typeref:struct:_hashmap_map	file:
+hashmap_new	hashmap.c	/^map_t hashmap_new(void) {$/;"	f
+hashmap_put	hashmap.c	/^int hashmap_put(map_t in, char* key, any_t value){$/;"	f
+hashmap_rehash	hashmap.c	/^int hashmap_rehash(map_t in){$/;"	f
+hashmap_remove	hashmap.c	/^int hashmap_remove(map_t in, char* key){$/;"	f
+head	threadpool.h	/^  int head;$/;"	m	struct:threadpool_t
+hooks	cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon2	file:
+hooks	cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon3	file:
+hooks	cJSON.h	/^CJSON_PUBLIC(void) cJSON_InitHooks(cJSON_Hooks* hooks);$/;"	v
+immediate_shutdown	threadpool.h	/^    immediate_shutdown = 1,$/;"	e	enum:__anon8
+in_use	hashmap.c	/^	int in_use;$/;"	m	struct:_hashmap_element	file:
+info	ncx_log.h	/^#define info(/;"	d
+init_seed	uuid4.c	/^static int init_seed(void) {$/;"	f	file:
+internal_free	cJSON.c	/^#define internal_free /;"	d	file:
+internal_free	cJSON.c	/^static void internal_free(void *pointer)$/;"	f	file:
+internal_hooks	cJSON.c	/^typedef struct internal_hooks$/;"	s	file:
+internal_hooks	cJSON.c	/^} internal_hooks;$/;"	t	typeref:struct:internal_hooks	file:
+internal_malloc	cJSON.c	/^#define internal_malloc /;"	d	file:
+internal_malloc	cJSON.c	/^static void *internal_malloc(size_t size)$/;"	f	file:
+internal_realloc	cJSON.c	/^#define internal_realloc /;"	d	file:
+internal_realloc	cJSON.c	/^static void *internal_realloc(void *pointer, size_t size)$/;"	f	file:
+ip	sched.h	/^	char ip[16];$/;"	m	struct:sched_master
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsArray(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsBool(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsFalse(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsInvalid(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNull(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNumber(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsObject(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsRaw(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsString(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsTrue(const cJSON * const item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(char *) cJSON_GetStringValue(cJSON *item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(char *) cJSON_Print(const cJSON *item);$/;"	v
+item	cJSON.h	/^CJSON_PUBLIC(char *) cJSON_PrintUnformatted(const cJSON *item);$/;"	v
+item	repository.c	/^struct item{$/;"	s	file:
+item_add_data	repository.c	/^int item_add_data(struct item *ps_item, const void *data, int len){$/;"	f
+item_free	repository.c	/^int item_free(struct item *ps_item){$/;"	f
+item_new	repository.c	/^int item_new(struct task *ps_task, struct item **pps_item, void *data, int len){$/;"	f
+json	cJSON.c	/^    const unsigned char *json;$/;"	m	struct:__anon1	file:
+key	hashmap.c	/^	char key[MAX_KEY_LENGTH];$/;"	m	struct:_hashmap_element	file:
+key	repository.c	/^	char key[128];$/;"	m	struct:task	file:
+length	cJSON.c	/^    size_t length;$/;"	m	struct:__anon2	file:
+length	cJSON.c	/^    size_t length;$/;"	m	struct:__anon3	file:
+level	log.c	/^  int level;$/;"	m	struct:__anon4	file:
+level_colors	log.c	/^static const char *level_colors[] = {$/;"	v	file:
+level_names	log.c	/^static const char *level_names[] = {$/;"	v	file:
+lock	log.c	/^  log_LockFn lock;$/;"	m	struct:__anon4	file:
+lock	log.c	/^static void lock(void)   {$/;"	f	file:
+lock	threadpool.h	/^  pthread_mutex_t lock;$/;"	m	struct:threadpool_t
+log	ncx_log.h	/^#define log(/;"	d
+log_LockFn	log.h	/^typedef void (*log_LockFn)(void *udata, int lock);$/;"	t
+log_debug	log.h	/^#define log_debug(/;"	d
+log_error	log.h	/^#define log_error(/;"	d
+log_fatal	log.h	/^#define log_fatal(/;"	d
+log_info	log.h	/^#define log_info(/;"	d
+log_lock_fn	main.c	/^void log_lock_fn(void *udata, int lock){$/;"	f
+log_log	log.c	/^void log_log(int level, const char *file, int line, const char *fmt, ...) {$/;"	f
+log_mutex	main.c	/^pthread_mutex_t log_mutex;$/;"	v
+log_set_fp	log.c	/^void log_set_fp(FILE *fp) {$/;"	f
+log_set_level	log.c	/^void log_set_level(int level) {$/;"	f
+log_set_lock	log.c	/^void log_set_lock(log_LockFn fn) {$/;"	f
+log_set_quiet	log.c	/^void log_set_quiet(int enable) {$/;"	f
+log_set_udata	log.c	/^void log_set_udata(void *udata) {$/;"	f
+log_trace	log.h	/^#define log_trace(/;"	d
+log_warn	log.h	/^#define log_warn(/;"	d
+main	bench.c	/^int main(int argc, char **argv)$/;"	f
+main	main.c	/^int main(int argc, char **argv){$/;"	f
+malloc_fn	cJSON.h	/^      void *(*malloc_fn)(size_t sz);$/;"	m	struct:cJSON_Hooks
+map_t	hashmap.h	/^typedef any_t map_t;$/;"	t
+master_construct	sched.h	/^	int (*master_construct)(void **pp_global_data);$/;"	m	struct:sched_master
+master_destruct	sched.h	/^	int (*master_destruct)(void *p_global_data);$/;"	m	struct:sched_master
+max_free_pages	slab.h	/^	size_t max_free_pages;						 \/* 最大的连续可用page数 *\/$/;"	m	struct:slab_stat
+min_shift	slab.h	/^	size_t min_shift;$/;"	m	struct:slab_pool
+min_size	slab.h	/^	size_t min_size;$/;"	m	struct:slab_pool
+mutex	repository.c	/^		pthread_mutex_t mutex;$/;"	m	union:task::__anon7	file:
+mutex	sched.h	/^	pthread_mutex_t mutex;$/;"	m	struct:sched_master
+mutex	slab.h	/^	ncx_shmtx_t mutex;$/;"	m	struct:slab_pool
+ncx_align	ncx_core.h	/^#define ncx_align(/;"	d
+ncx_align_ptr	ncx_core.h	/^#define ncx_align_ptr(/;"	d
+ncx_int_t	ncx_core.h	/^typedef intptr_t        ncx_int_t; $/;"	t
+ncx_memset	ncx_core.h	/^#define ncx_memset(/;"	d
+ncx_memzero	ncx_core.h	/^#define ncx_memzero(/;"	d
+ncx_shmtx_lock	ncx_lock.h	/^#define ncx_shmtx_lock(/;"	d
+ncx_shmtx_t	ncx_lock.h	/^} ncx_shmtx_t;$/;"	t	typeref:struct:__anon6
+ncx_shmtx_unlock	ncx_lock.h	/^#define ncx_shmtx_unlock(/;"	d
+ncx_uint_t	ncx_core.h	/^typedef uintptr_t       ncx_uint_t; $/;"	t
+next	cJSON.h	/^    struct cJSON *next;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON
+next	slab.h	/^    struct slab_page *next;$/;"	m	struct:slab_page	typeref:struct:slab_page::slab_page
+noalloc	cJSON.c	/^    cJSON_bool noalloc;$/;"	m	struct:__anon3	file:
+notify	threadpool.h	/^  pthread_cond_t notify;$/;"	m	struct:threadpool_t
+offset	cJSON.c	/^    size_t offset;$/;"	m	struct:__anon2	file:
+offset	cJSON.c	/^    size_t offset;$/;"	m	struct:__anon3	file:
+ool_size	slab.h	/^	size_t ool_size, used_size, used_pct;$/;"	m	struct:slab_stat
+p_big	slab.h	/^	size_t p_small, p_exact, p_big, p_page;		 \/* 四种slab占用的page数 *\/$/;"	m	struct:slab_stat
+p_exact	slab.h	/^	size_t p_small, p_exact, p_big, p_page;		 \/* 四种slab占用的page数 *\/$/;"	m	struct:slab_stat
+p_global	repository.c	/^#define p_global /;"	d	file:
+p_global	repository.c	/^#undef p_global$/;"	d	file:
+p_global2	repository.c	/^#define p_global2 /;"	d	file:
+p_global_data	sched.h	/^	void *p_global_data;$/;"	m	struct:sched_master
+p_master	sched.h	/^	struct sched_master *p_master;$/;"	m	struct:sched_slaver	typeref:struct:sched_slaver::sched_master
+p_page	slab.h	/^	size_t p_small, p_exact, p_big, p_page;		 \/* 四种slab占用的page数 *\/$/;"	m	struct:slab_stat
+p_private	repository.c	/^#define p_private /;"	d	file:
+p_private	repository.c	/^#undef p_private$/;"	d	file:
+p_private_data	sched.h	/^	void *p_private_data;$/;"	m	struct:sched_slaver
+p_small	slab.h	/^	size_t p_small, p_exact, p_big, p_page;		 \/* 四种slab占用的page数 *\/$/;"	m	struct:slab_stat
+pack_result	repository.c	/^int pack_result(char *res, int n, ...){$/;"	f
+pages	slab.h	/^	size_t pages, free_page;$/;"	m	struct:slab_stat
+pages	slab.h	/^	struct slab_page *pages;$/;"	m	struct:slab_pool	typeref:struct:slab_pool::slab_page
+pagesize	slab.c	/^static uintptr_t  pagesize;$/;"	v	file:
+pagesize_shift	slab.c	/^static uintptr_t  pagesize_shift;$/;"	v	file:
+parse_array	cJSON.c	/^static cJSON_bool parse_array(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:
+parse_buffer	cJSON.c	/^} parse_buffer;$/;"	t	typeref:struct:__anon2	file:
+parse_error	repository.c	/^int parse_error(char *res, char *mess){$/;"	f
+parse_hex4	cJSON.c	/^static unsigned parse_hex4(const unsigned char * const input)$/;"	f	file:
+parse_number	cJSON.c	/^static cJSON_bool parse_number(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:
+parse_object	cJSON.c	/^static cJSON_bool parse_object(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:
+parse_req	repository.c	/^int parse_req(const cJSON *req, const char *filed, void **value){$/;"	f
+parse_string	cJSON.c	/^static cJSON_bool parse_string(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:
+parse_value	cJSON.c	/^static cJSON_bool parse_value(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:
+path	binlog.h	/^	char path[128];$/;"	m	struct:binlog
+pipe	sched.h	/^	int pipe[2];$/;"	m	struct:sched_master
+port	sched.h	/^	int port;$/;"	m	struct:sched_master
+position	cJSON.c	/^    size_t position;$/;"	m	struct:__anon1	file:
+prev	cJSON.h	/^    struct cJSON *prev;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON
+prev	slab.h	/^    uintptr_t prev;$/;"	m	struct:slab_page
+print	cJSON.c	/^static unsigned char *print(const cJSON * const item, cJSON_bool format, const internal_hooks * const hooks)$/;"	f	file:
+print_array	cJSON.c	/^static cJSON_bool print_array(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:
+print_number	cJSON.c	/^static cJSON_bool print_number(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:
+print_object	cJSON.c	/^static cJSON_bool print_object(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:
+print_string	cJSON.c	/^static cJSON_bool print_string(const cJSON * const item, printbuffer * const p)$/;"	f	file:
+print_string_ptr	cJSON.c	/^static cJSON_bool print_string_ptr(const unsigned char * const input, printbuffer * const output_buffer)$/;"	f	file:
+print_value	cJSON.c	/^static cJSON_bool print_value(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:
+printbuffer	cJSON.c	/^} printbuffer;$/;"	t	typeref:struct:__anon3	file:
+private_fifo_queue	repository.c	/^	void *private_fifo_queue[2];$/;"	m	struct:item	file:
+private_repo	repository.c	/^struct private_repo{$/;"	s	file:
+private_repo_del	repository.c	/^int private_repo_del(struct private_repo *ps_private){$/;"	f
+private_repo_get_task	repository.c	/^int private_repo_get_task(struct private_repo *ps_private, struct task **pps_task, char *key){$/;"	f
+private_repo_new	repository.c	/^int private_repo_new(struct global_repo *ps_global, struct private_repo **pps_private){$/;"	f
+private_repository_construct	repository.c	/^int private_repository_construct(void *p_global1, void **pp_private){$/;"	f
+private_repository_destruct	repository.c	/^int private_repository_destruct(void *p_global1, void *p_private1){$/;"	f
+processing_item_hashmap	repository.c	/^		void *processing_item_hashmap;$/;"	m	union:task::__anon7	file:
+ps_global	repository.c	/^	struct global_repo *ps_global;				\/* pointer to global_repo*\/$/;"	m	struct:private_repo	typeref:struct:private_repo::global_repo	file:
+ps_task	repository.c	/^	struct task *ps_task;		\/\/ Pointer to parent struct task, NULL indicate global task$/;"	m	struct:task	typeref:struct:task::task	file:
+queue	sched.h	/^	void *queue[2];$/;"	m	struct:sched_master
+queue	threadpool.h	/^  threadpool_task_t *queue;$/;"	m	struct:threadpool_t
+queue_size	threadpool.h	/^  int queue_size;$/;"	m	struct:threadpool_t
+quiet	log.c	/^  int quiet;$/;"	m	struct:__anon4	file:
+real_pages	slab.c	/^static uintptr_t  real_pages;$/;"	v	file:
+reallocate	cJSON.c	/^    void *(*reallocate)(void *pointer, size_t size);$/;"	m	struct:internal_hooks	file:
+replace_item_in_object	cJSON.c	/^static cJSON_bool replace_item_in_object(cJSON *object, const char *string, cJSON *replacement, cJSON_bool case_sensitive)$/;"	f	file:
+repo_queue	repository.c	/^	void *repo_queue[2];						\/* used for *\/$/;"	m	struct:global_repo	file:
+repo_queue	repository.c	/^	void *repo_queue[2];						\/* used for queue, *\/$/;"	m	struct:private_repo	file:
+repo_queue_mutex	repository.c	/^	pthread_mutex_t repo_queue_mutex;			\/* mutex for repo queue*\/$/;"	m	struct:global_repo	file:
+repo_work	repository.c	/^int repo_work(struct global_repo *ps_global, struct private_repo *ps_private, char *res, char *src, int src_len){$/;"	f
+repository_work	repository.c	/^int repository_work(void *p_global1, void *p_private1, char *res, char *src, int src_len){$/;"	f
+res_buf	sched.h	/^	char res_buf[RESULT_BUFFER_LEN_MAX];$/;"	m	struct:sched_slaver
+res_buf_len	sched.h	/^	int res_buf_len;$/;"	m	struct:sched_slaver
+retry_times	repository.c	/^	int retry_times;$/;"	m	struct:item	file:
+run_flag	sched.h	/^	char run_flag;$/;"	m	struct:sched_master
+sched_master	sched.h	/^struct sched_master{$/;"	s
+sched_master_dispatch	sched.c	/^int sched_master_dispatch(struct sched_master *p_master){$/;"	f
+sched_master_free	sched.c	/^int sched_master_free(struct sched_master *p_master){$/;"	f
+sched_master_init	sched.c	/^int sched_master_init(struct sched_master *p_master){$/;"	f
+sched_slaver	sched.h	/^struct sched_slaver{$/;"	s
+sched_slaver_free	sched.c	/^int sched_slaver_free(struct sched_slaver *p_slaver){$/;"	f
+sched_slaver_init	sched.c	/^int sched_slaver_init(struct sched_master *p_master, struct sched_slaver **pp_slaver){$/;"	f
+seed	uuid4.c	/^static uint64_t seed[2];$/;"	v	file:
+seeded	uuid4.c	/^static int seeded = 0;$/;"	v	file:
+set_fd_nonblock	sched.c	/^int set_fd_nonblock(int fd){$/;"	f
+shutdown	threadpool.h	/^  int shutdown;$/;"	m	struct:threadpool_t
+size	cJSON.h	/^CJSON_PUBLIC(void *) cJSON_malloc(size_t size);$/;"	v
+size	hashmap.c	/^	int size;$/;"	m	struct:_hashmap_map	file:
+skip_utf8_bom	cJSON.c	/^static parse_buffer *skip_utf8_bom(parse_buffer * const buffer)$/;"	f	file:
+slab	slab.h	/^    uintptr_t slab;$/;"	m	struct:slab_page
+slab_alloc	slab.c	/^slab_alloc(struct slab_pool *pool, size_t size)$/;"	f
+slab_alloc_locked	slab.c	/^slab_alloc_locked(struct slab_pool *pool, size_t size)$/;"	f
+slab_alloc_pages	slab.c	/^slab_alloc_pages(struct slab_pool *pool, uintptr_t pages)$/;"	f	file:
+slab_dummy_init	slab.c	/^slab_dummy_init(struct slab_pool *pool)$/;"	f
+slab_empty	slab.c	/^slab_empty(struct slab_pool *pool, struct slab_page *page)$/;"	f	file:
+slab_exact_shift	slab.c	/^static uintptr_t  slab_exact_shift;$/;"	v	file:
+slab_exact_size	slab.c	/^static uintptr_t  slab_exact_size;$/;"	v	file:
+slab_free	slab.c	/^slab_free(struct slab_pool *pool, void *p)$/;"	f
+slab_free_locked	slab.c	/^slab_free_locked(struct slab_pool *pool, void *p)$/;"	f
+slab_free_pages	slab.c	/^slab_free_pages(struct slab_pool *pool, struct slab_page *page,$/;"	f	file:
+slab_init	slab.c	/^slab_init(struct slab_pool *pool)$/;"	f
+slab_junk	slab.c	/^#define slab_junk(/;"	d	file:
+slab_max_size	slab.c	/^static uintptr_t  slab_max_size;$/;"	v	file:
+slab_page	slab.h	/^struct slab_page{$/;"	s
+slab_pool	slab.h	/^struct slab_pool{$/;"	s
+slab_stat	slab.c	/^slab_stat(struct slab_pool *pool, struct slab_stat *stat)$/;"	f
+slab_stat	slab.h	/^struct slab_stat{$/;"	s
+slaver_construct	sched.h	/^	int (*slaver_construct)(void *p_global_data, void **pp_private_data);$/;"	m	struct:sched_master
+slaver_construct	sched.h	/^	int (*slaver_construct)(void *p_global_data, void **pp_private_data);$/;"	m	struct:sched_slaver
+slaver_destruct	sched.h	/^	int (*slaver_destruct)(void *p_global_data, void *p_private_data);$/;"	m	struct:sched_master
+slaver_destruct	sched.h	/^	int (*slaver_destruct)(void *p_global_data, void *p_private_data);$/;"	m	struct:sched_slaver
+slaver_work	sched.h	/^	int (*slaver_work)(void *p_global_data, void *p_private_data, char *res_buf, char *src_buf, int src_buf_len);$/;"	m	struct:sched_master
+slaver_work	sched.h	/^	int (*slaver_work)(void *p_global_data, void *p_private_data, char *res_buf, char *src_buf, int src_buf_len);$/;"	m	struct:sched_slaver
+slaver_work_wrapper	sched.c	/^void slaver_work_wrapper(void *arg){$/;"	f
+sock_fd	sched.h	/^	int sock_fd;$/;"	m	struct:sched_master
+sock_fd	sched.h	/^	int sock_fd;$/;"	m	struct:sched_slaver
+spin	ncx_lock.h	/^	uintptr_t spin;$/;"	m	struct:__anon6
+src_buf	sched.h	/^	char src_buf[SOURCE_BUFFER_LEN_MAX];$/;"	m	struct:sched_slaver
+src_buf_len	sched.h	/^	int src_buf_len;$/;"	m	struct:sched_slaver
+start	slab.h	/^	u_char *start;$/;"	m	struct:slab_pool
+started	threadpool.h	/^  int started;$/;"	m	struct:threadpool_t
+string	cJSON.h	/^    char *string;$/;"	m	struct:cJSON
+suffix_object	cJSON.c	/^static void suffix_object(cJSON *prev, cJSON *item)$/;"	f	file:
+table_size	hashmap.c	/^	int table_size;$/;"	m	struct:_hashmap_map	file:
+tail	threadpool.h	/^  int tail;$/;"	m	struct:threadpool_t
+task	repository.c	/^struct task{$/;"	s	file:
+task_ack_item	repository.c	/^int task_ack_item(struct global_repo *ps_global, struct task *ps_task, char *uuid, int flag){$/;"	f
+task_add_item	repository.c	/^int task_add_item(struct task *ps_task, struct item *ps_item){$/;"	f
+task_del_item	repository.c	/^int task_del_item(struct task *ps_task, struct item *ps_item){$/;"	f
+task_free	repository.c	/^int task_free(struct task *ps_task){$/;"	f
+task_free_internal	repository.c	/^int task_free_internal(void *item, void *data){$/;"	f
+task_get_item	repository.c	/^int task_get_item(struct task *ps_task, struct item **pps_item){$/;"	f
+task_hashmap	repository.c	/^	void *task_hashmap;							\/* *\/$/;"	m	struct:global_repo	file:
+task_hashmap	repository.c	/^	void *task_hashmap;							\/* task hashmap,*\/$/;"	m	struct:private_repo	file:
+task_hashmap_mutex	repository.c	/^	pthread_mutex_t task_hashmap_mutex;			\/* *\/$/;"	m	struct:global_repo	file:
+task_new	repository.c	/^int task_new(struct task **pps_task, struct task *ps_task, const char *key){$/;"	f
+thread_count	threadpool.h	/^  int thread_count;$/;"	m	struct:threadpool_t
+threadpool	sched.h	/^	threadpool_t *threadpool;$/;"	m	struct:sched_master
+threadpool_add	threadpool.c	/^int threadpool_add(threadpool_t *pool, void (*function)(void *),$/;"	f
+threadpool_create	threadpool.c	/^threadpool_t *threadpool_create(int thread_count, int queue_size, int flags)$/;"	f
+threadpool_destroy	threadpool.c	/^int threadpool_destroy(threadpool_t *pool, int flags)$/;"	f
+threadpool_destroy_flags_t	threadpool.h	/^} threadpool_destroy_flags_t;$/;"	t	typeref:enum:__anon11
+threadpool_error_t	threadpool.h	/^} threadpool_error_t;$/;"	t	typeref:enum:__anon10
+threadpool_free	threadpool.c	/^int threadpool_free(threadpool_t *pool)$/;"	f
+threadpool_graceful	threadpool.h	/^    threadpool_graceful       = 1$/;"	e	enum:__anon11
+threadpool_invalid	threadpool.h	/^    threadpool_invalid        = -1,$/;"	e	enum:__anon10
+threadpool_lock_failure	threadpool.h	/^    threadpool_lock_failure   = -2,$/;"	e	enum:__anon10
+threadpool_queue_full	threadpool.h	/^    threadpool_queue_full     = -3,$/;"	e	enum:__anon10
+threadpool_shutdown	threadpool.h	/^    threadpool_shutdown       = -4,$/;"	e	enum:__anon10
+threadpool_shutdown_t	threadpool.h	/^} threadpool_shutdown_t;$/;"	t	typeref:enum:__anon8
+threadpool_t	threadpool.h	/^struct threadpool_t {$/;"	s
+threadpool_t	threadpool.h	/^typedef struct threadpool_t threadpool_t;$/;"	t	typeref:struct:threadpool_t
+threadpool_task_t	threadpool.h	/^} threadpool_task_t;$/;"	t	typeref:struct:__anon9
+threadpool_thread	threadpool.c	/^static void *threadpool_thread(void *threadpool)$/;"	f	file:
+threadpool_thread_failure	threadpool.h	/^    threadpool_thread_failure = -5$/;"	e	enum:__anon10
+threads	threadpool.h	/^  pthread_t *threads;$/;"	m	struct:threadpool_t
+timestamp	tools.c	/^long long timestamp(){$/;"	f
+trace	ncx_log.h	/^#define trace(/;"	d
+true	cJSON.c	/^#define true /;"	d	file:
+type	cJSON.h	/^    int type;$/;"	m	struct:cJSON
+u_char	ncx_core.h	/^typedef unsigned char 	u_char;$/;"	t
+u_char	slab.h	/^typedef unsigned char u_char;$/;"	t
+udata	log.c	/^  void *udata;$/;"	m	struct:__anon4	file:
+unlock	log.c	/^static void unlock(void) {$/;"	f	file:
+update_offset	cJSON.c	/^static void update_offset(printbuffer * const buffer)$/;"	f	file:
+usTime	bench.c	/^uint64_t usTime()  $/;"	f
+used_pct	slab.h	/^	size_t ool_size, used_size, used_pct;$/;"	m	struct:slab_stat
+used_size	slab.h	/^	size_t ool_size, used_size, used_pct;$/;"	m	struct:slab_stat
+utf16_literal_to_utf8	cJSON.c	/^static unsigned char utf16_literal_to_utf8(const unsigned char * const input_pointer, const unsigned char * const input_end, unsigned char **output_pointer)$/;"	f	file:
+uuid	repository.c	/^	char uuid[36];$/;"	m	struct:item	file:
+uuid4_generate	uuid4.c	/^int uuid4_generate(char *dst) {$/;"	f
+valuedouble	cJSON.h	/^    double valuedouble;$/;"	m	struct:cJSON
+valueint	cJSON.h	/^    int valueint;$/;"	m	struct:cJSON
+valuestring	cJSON.h	/^    char *valuestring;$/;"	m	struct:cJSON
+wq	sched.h	/^	void *wq[2];$/;"	m	struct:sched_slaver
+xorshift128plus	uuid4.c	/^static uint64_t xorshift128plus(uint64_t *s) {$/;"	f	file:
