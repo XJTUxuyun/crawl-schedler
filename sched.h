@@ -13,6 +13,7 @@
 #include <sys/socket.h>
 
 #include "threadpool.h"
+#include "ngx_palloc.h"
 
 #define SOURCE_BUFFER_LEN_MAX 5120
 #define RESULT_BUFFER_LEN_MAX 5120
@@ -29,6 +30,7 @@ struct sched_master{
 	pthread_mutex_t mutex;
 
 	threadpool_t *threadpool;
+	ngx_pool_t *mempool;
 	void *p_global_data;
 
 	int pipe[2];

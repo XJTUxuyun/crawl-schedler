@@ -152,6 +152,18 @@ int sched_master_init(struct sched_master *p_master){
 		return -1;
 	}
 
+	// 1Mb mempory pool for sched
+	if(!(p_master->mempool = ngx_create_pool(1024000))){
+		log_fatal("ngx_create_pool() error");
+		close(p_master->sock_fd);
+		close(p_master->epoll_fd);
+		close(p_master->pipe[0]);
+		close(p_master->pipe[1]);
+		threadpool_destroy(p_master->threadpool, 0);
+		pthread_mutex_destroy(&p_master->mutex);
+		return -1;
+	}
+
 
 	p_master->run_flag = 1;
 
@@ -184,6 +196,7 @@ int sched_master_free(struct sched_master *p_master){
 	close(p_master->pipe[1]);
 	pthread_mutex_destroy(&p_master->mutex);
 	threadpool_destroy(p_master->threadpool, 0);
+	ngx_destroy_pool(p_master->mempool);
 
 	return 0;
 }
@@ -196,6 +209,7 @@ int sched_master_dispatch(struct sched_master *p_master){
 
 		if(nfds == -1){
 			// something error occur with epoll, exit graceful
+			log_fatal("epoll wait error, set flag to zero, program will exit");
 			p_master->run_flag = 0;
 			continue;
 		}else if(nfds == 0){
@@ -256,11 +270,12 @@ int sched_slaver_init(struct sched_master *p_master, struct sched_slaver **pp_sl
 		return -1;
 	}
 
-	if((*pp_slaver = (struct sched_slaver *)malloc(sizeof(struct sched_slaver))) == NULL){
+	//if((*pp_slaver = (struct sched_slaver *)malloc(sizeof(struct sched_slaver))) == NULL){
+	if((*pp_slaver = (struct sched_slaver *)ngx_palloc(p_master->mempool, sizeof(struct sched_slaver))) == NULL){
 		log_error("malloc() error->%s", strerror(errno));
 		return -1;
 	}
-	
+
 	bzero(*pp_slaver, sizeof(struct sched_slaver));
 	(*pp_slaver)->p_master = p_master;
 	(*pp_slaver)->slaver_construct = p_master->slaver_construct;
@@ -275,7 +290,9 @@ int sched_slaver_init(struct sched_master *p_master, struct sched_slaver **pp_sl
 	}
 
 	if((*pp_slaver)->slaver_construct(p_master->p_global_data, &(*pp_slaver)->p_private_data) == -1){
-		free(*pp_slaver);
+		//free(*pp_slaver);
+		//log_info("hhhhhhh");
+		ngx_pfree(p_master->mempool, *pp_slaver);
 		*pp_slaver = NULL;
 		return -1;
 	}
@@ -297,13 +314,14 @@ int sched_slaver_free(struct sched_slaver *p_slaver){
 	if(p_slaver->slaver_destruct != NULL){
 		int ret = p_slaver->slaver_destruct(p_slaver->p_master->p_global_data, p_slaver->p_private_data);
 		if(ret == -1){
-			free(p_slaver);
+			//free(p_slaver);
+			ngx_pfree(p_slaver->p_master->mempool, p_slaver);
 			return -1;
 		}
 	}
 
-	free(p_slaver);
-
+	//free(p_slaver);
+	ngx_pfree(p_slaver->p_master->mempool, p_slaver);
 	return 0;
 }
 
@@ -358,7 +376,7 @@ int handler_slaver_connection(struct sched_master *p_master){
 		return -1;
 	}
 	
-	log_info("connection->%s:%d success", inet_ntoa(p_slaver->addr.sin_addr), ntohs(p_slaver->addr.sin_port));
+	log_debug("connection->%s:%d success", inet_ntoa(p_slaver->addr.sin_addr), ntohs(p_slaver->addr.sin_port));
 	return 0;
 }
 
@@ -383,7 +401,7 @@ int handler_slaver_disconnection(struct sched_slaver *p_slaver){
 		return -1;
 	}
 	
-	log_info("disconnection->%s success", str);
+	log_debug("disconnection->%s success", str);
 	return 0;
 }
 
@@ -460,6 +478,7 @@ int set_fd_nonblock(int fd){
 
 void slaver_work_wrapper(void *arg){
 	struct sched_slaver *p_slaver = (struct sched_slaver *)arg;
+	bzero(p_slaver->res_buf, RESULT_BUFFER_LEN_MAX);
 	p_slaver->res_buf_len = p_slaver->slaver_work(p_slaver->p_master->p_global_data, p_slaver->p_private_data, p_slaver->res_buf, p_slaver->src_buf, p_slaver->src_buf_len);
 
 	if(pthread_mutex_lock(&p_slaver->p_master->mutex)){

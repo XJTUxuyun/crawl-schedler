@@ -134,10 +134,12 @@ int item_add_data(struct item *ps_item, const void *data, int len){
 	if(!ps_item)
 		return ERR_NULL_POINTER;
 
-	if((ps_item->data = (void *)malloc(len)) == NULL){
+	if((ps_item->data = (void *)malloc(len + 1)) == NULL){
 		log_error("malloc item data error");
 		return ERR_MALLOC;
 	}
+
+	bzero(ps_item->data, len  + 1);
 
 	memcpy(ps_item->data, data, len);
 	return 0;
@@ -570,7 +572,7 @@ int pack_result(char *res, int n, ...){
 	}
 	va_end(args);
 
-	if(cJSON_PrintPreallocated(json, res, 5120, 0) == 0){
+	if(cJSON_PrintPreallocated(json, res, 5120, 1) == 0){
 		cJSON_Delete(json);
 		return ERR_JSON_OP;
 	}
@@ -626,7 +628,7 @@ int repo_work(struct global_repo *ps_global, struct private_repo *ps_private, ch
 	
 	struct item *ps_item = NULL;
 	if(!strcmp(op, "GET")){
-		log_info("get op");
+		log_debug("get op");
 		r = task_get_item(ps_task, &ps_item);
 		if(r != OK){
 			log_error("task_get_item error->%s", error_code_desc(r));
@@ -635,7 +637,7 @@ int repo_work(struct global_repo *ps_global, struct private_repo *ps_private, ch
 			pack_result(res, 6, "ret", "OK", "uuid", ps_item->uuid, "data", ps_item->data);
 		}
 	}else if(!strcmp(op, "PUT")){
-		log_info("put op");
+		log_debug("put op");
 		char *buf;
 		int l = parse_req(req, "data", (void **)&buf);
 		if(l > 0){
@@ -649,7 +651,7 @@ int repo_work(struct global_repo *ps_global, struct private_repo *ps_private, ch
 			pack_result(res, 2, "ret", "cannot parse data");
 		}
 	}else if(!strcmp(op, "ACK")){
-		log_info("ack op");
+		log_debug("ack op");
 		char *uuid;
 		r = parse_req(req, "uuid", (void **)&uuid);
 		if(r <= 0){
@@ -760,7 +762,8 @@ int repository_work(void *p_global1, void *p_private1, char *res, char *src, int
 #define p_global (*(struct global_repo **)&p_global1)
 #define p_private (*(struct private_repo **)&p_private1)
 
-	printf("recv->%s\n", src);
+	log_debug("recv->%s\n", src);
+	// log_info("p_global %p, p_private %p, res %p src %p src_len %d", p_global, p_private, res, src, src_len);
 	int res_len = repo_work(p_global, p_private, res, src, src_len);
 
 #undef p_private

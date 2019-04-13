@@ -31,6 +31,7 @@ int main(int argc, char **argv){
 	}
 
 	log_set_fp(log_fp);
+	log_set_level(LOG_INFO);
 	log_set_lock(log_lock_fn);
 
 	struct sched_master master = {
@@ -52,6 +53,8 @@ int main(int argc, char **argv){
 		printf("dispatch error");
 		return -1;
 	}
+
+	log_info("sched fuck");
 
 	sched_master_free(&master);
 	return 0;
