@@ -1,6 +1,11 @@
 #ifndef __COMMON_H
 #define __COMMON_H
 
+#include "ngx_palloc.h"
+
+#include <pthread.h>
+#include <errno.h>
+
 #define OK 0
 
 #define ERROR_MAP(XX)											\
@@ -13,6 +18,7 @@
 	XX(-6, ITEM_UNEXIST, "not such item")						\
 	XX(-7, QUEUE_EMPTY, "queue is empty")						\
 	XX(-8, JSON_OP, "json error")								\
+	XX(-9, MEMPOOL, "memory pool error")						\
 	XX(1, UNKNOW, "unknow error")
 
 #define ERROR_GEN(val, name, str)	ERR_##name = val,
@@ -20,26 +26,6 @@ enum ERR{
 	ERROR_MAP(ERROR_GEN)
 };
 #undef ERROR_GEN
-
-#define ERROR_STR_GEN(val, name, str)	case ERR_##name : return str;
-const char *error_code_desc(enum ERR code){
-	switch(code){
-		ERROR_MAP(ERROR_STR_GEN)
-	default:
-		return "unknow error";
-	}
-}
-#undef ERROR_STR_GEN
-
-#define ERROR_NAME_GEN(val, name, str)	case ERR_##name : return #name;
-const char *error_code_name(enum ERR code){
-	switch(code){
-		ERROR_MAP(ERROR_NAME_GEN)
-	default:
-		return "unknow name";
-	}
-}
-#undef ERROR_NAME_GEN
 
 #define API_RET_MAP(XX)												\
 	XX(0, SUCCESS, "success")										
@@ -50,24 +36,22 @@ enum API_RET{
 };
 #undef API_RET_GEN
 
-#define API_STR_GEN(val, name, str)		case API_##name : return str;
-const char *api_code_desc(enum API_RET code){
-	switch(code){
-		API_RET_MAP(API_STR_GEN)
-	default:
-		return "unknow api ret";
-	}
-}
-#undef API_STR_GEN
+const char *error_code_desc(enum ERR code);
+const char *error_code_name(enum ERR code);
+const char *api_code_desc(enum API_RET code);
+const char *api_code_name(enum API_RET code);
 
-#define API_NAME_GEN(val, name, str)	case API_##name : return #name;
-const char * api_code_name(enum API_RET code){
-	switch(code){
-		API_RET_MAP(API_NAME_GEN)
-	default:
-		return "unknow api ret";
-	}
-}
-#undef API_NAME_GEN
+struct mempool{
+	pthread_mutex_t mutex;
+	ngx_pool_t *pool;
+};
+
+int mempool_initial(struct mempool *pool);
+
+int mempool_destroy(struct mempool *pool);
+
+int mempool_alloc(struct mempool *pool, size_t size, void **p);
+
+int mempool_free(struct mempool *pool, void *p);
 
 #endif

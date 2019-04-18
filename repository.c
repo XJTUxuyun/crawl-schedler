@@ -28,6 +28,8 @@ struct task{
 	};
 	struct task *ps_task;		// Pointer to parent struct task, NULL indicate global task
 
+	struct global_repo *global_repo;
+
 	void *fifo_queue[2];
 };
 
@@ -46,6 +48,8 @@ struct global_repo{
 
 	pthread_mutex_t completed_queue_mutex;		/* */
 	void *completed_queue[2];					/* */
+
+	struct mempool mempool;
 };
 
 int item_new(struct task *ps_task, struct item **pps_item, void *data, int len);
@@ -54,7 +58,7 @@ int item_add_data(struct item *ps_item, const void *data, int len);
 
 int item_del(struct item *ps_item);
 
-int task_new(struct task **pps_task, struct task *ps_task, const char *key);
+int task_new(struct global_repo *global_repo, struct task **pps_task, struct task *ps_task, const char *key);
 
 int task_add_item(struct task *ps_task, struct item *ps_item);
 
@@ -88,9 +92,12 @@ int item_new(struct task *ps_task, struct item **pps_item, void *data, int len){
 	if(!ps_task)
 		return ERR_NULL_POINTER;
 
-	if((*pps_item = (struct item *)malloc(sizeof(struct item))) == NULL){
-		return ERR_MALLOC;
+	if(mempool_alloc(&ps_task->global_repo->mempool, sizeof(struct item), (void **)pps_item)){
+		return ERR_MEMPOOL;
 	}
+	//if((*pps_item = (struct item *)malloc(sizeof(struct item))) == NULL){
+	//	return ERR_MALLOC;
+	//}
 	bzero(*pps_item, sizeof(struct item));
 
 	// generate uuid
@@ -98,7 +105,8 @@ int item_new(struct task *ps_task, struct item **pps_item, void *data, int len){
 
 	int r = item_add_data(*pps_item, data, len);
 	if(r){
-		free(*pps_item);
+		mempool_free(&ps_task->global_repo->mempool, *pps_item);
+		//free(*pps_item);
 		return r;
 	}
 
@@ -133,7 +141,6 @@ int item_new(struct task *ps_task, struct item **pps_item, void *data, int len){
 int item_add_data(struct item *ps_item, const void *data, int len){
 	if(!ps_item)
 		return ERR_NULL_POINTER;
-
 	if((ps_item->data = (void *)malloc(len + 1)) == NULL){
 		log_error("malloc item data error");
 		return ERR_MALLOC;
@@ -154,19 +161,25 @@ int item_free(struct item *ps_item){
 	
 	if(ps_item->data)
 		free(ps_item->data);
-	free(ps_item);
+	// free(ps_item); mempool_free
 	return 0;
 }
 
-int task_new(struct task **pps_task, struct task *ps_task, const char *key){
-	if(!key)
+int task_new(struct global_repo *global_repo, struct task **pps_task, struct task *ps_task, const char *key){
+	if(!key || !global_repo)
 		return ERR_NULL_POINTER;
-	if((*pps_task = (struct task *)malloc(sizeof(struct task))) == NULL){
+
+	if(mempool_alloc(&global_repo->mempool, sizeof(struct task), (void **)pps_task)){
 		log_error("malloc task error");
-		return ERR_MALLOC;
+		return ERR_MEMPOOL;
 	}
+	//if((*pps_task = (struct task *)malloc(sizeof(struct task))) == NULL){
+	//	log_error("malloc task error");
+	//	return ERR_MALLOC;
+	//}
 	bzero(*pps_task, sizeof(struct task));
 	strcpy((*pps_task)->key, key);
+	(*pps_task)->global_repo = global_repo;
 	
 	QUEUE_INIT(&(*pps_task)->fifo_queue);
 
@@ -174,7 +187,8 @@ int task_new(struct task **pps_task, struct task *ps_task, const char *key){
 		// for gloal purpose
 		if(pthread_mutex_init(&(*pps_task)->mutex, NULL)){
 			log_error("initial task mutex error->%s", strerror(errno));
-			free(*pps_task);
+			// free(*pps_task);
+			if(mempool_free(&global_repo->mempool, *pps_task))
 			return ERR_MUTEX_INIT;
 		}
 	}else{
@@ -402,7 +416,8 @@ int task_free(struct task *ps_task){
 	}
 	
 	// free memory
-	free(ps_task);
+	// free(ps_task);
+	mempool_free(&ps_task->global_repo->mempool, ps_task);
 	return 0;
 }
 
@@ -411,11 +426,14 @@ int private_repo_new(struct global_repo *ps_global, struct private_repo **pps_pr
 		log_error("ps_global is null");
 		return ERR_NULL_POINTER;
 	}
-
-	if((*pps_private = (struct private_repo *)malloc(sizeof(struct private_repo))) == NULL){
+	if(mempool_alloc(&ps_global->mempool, sizeof(struct private_repo), pps_private)){
 		log_error("malloc struct private_repo error");
 		return ERR_MALLOC;
 	}
+	//if((*pps_private = (struct private_repo *)malloc(sizeof(struct private_repo))) == NULL){
+	//	log_error("malloc struct private_repo error");
+	//	return ERR_MALLOC;
+	//}
 
 	bzero(*pps_private, sizeof(struct private_repo));
 
@@ -438,6 +456,7 @@ int private_repo_del(struct private_repo *ps_private){
 }
 
 int global_repo_new(struct global_repo **pps_global){
+	// mempool is unvariable new
 	if((*pps_global = (struct global_repo *)malloc(sizeof(struct global_repo))) == NULL){
 		log_error("malloc struct global_repo error");
 		return ERR_NULL_POINTER;
@@ -450,15 +469,22 @@ int global_repo_new(struct global_repo **pps_global){
 
 	(*pps_global)->task_hashmap = hashmap_new();
 
+	if(mempool_initial(&(*pps_global)->mempool) != OK){
+		log_fatal("initial repo mempool error");
+		return ERR_MEMPOOL;
+	}
+
 	if(pthread_mutex_init(&(*pps_global)->repo_queue_mutex, NULL) != 0){
 		log_fatal("initial repo queue mutex error->%s", strerror(errno));
 		hashmap_free((*pps_global)->task_hashmap);
+		mempool_destroy(&(*pps_global)->mempool);
 		return ERR_MUTEX_INIT;
 	}
 	if(pthread_mutex_init(&(*pps_global)->completed_queue_mutex, NULL) != 0){
 		log_fatal("initial repo queue mutex error->%s", strerror(errno));
 		hashmap_free((*pps_global)->task_hashmap);
 		pthread_mutex_destroy(&(*pps_global)->repo_queue_mutex);
+		mempool_destroy(&(*pps_global)->mempool);
 		return ERR_MUTEX_INIT;
 	}
 	if(pthread_mutex_init(&(*pps_global)->task_hashmap_mutex, NULL) != 0){
@@ -466,6 +492,7 @@ int global_repo_new(struct global_repo **pps_global){
 		hashmap_free((*pps_global)->task_hashmap);
 		pthread_mutex_destroy(&(*pps_global)->repo_queue_mutex);
 		pthread_mutex_destroy(&(*pps_global)->completed_queue_mutex);
+		mempool_destroy(&(*pps_global)->mempool);
 		return ERR_MUTEX_INIT;
 	}
 
@@ -527,7 +554,7 @@ int private_repo_get_task(struct private_repo *ps_private, struct task **pps_tas
 			if(pthread_mutex_lock(&ps_private->ps_global->task_hashmap_mutex))
 				return ERR_MUTEX_LOCK;
 
-			task_new(&t_, NULL, key);
+			task_new(ps_private->ps_global, &t_, NULL, key);
 			hashmap_put(ps_private->ps_global->task_hashmap, key, t_);
 
 			// unlock hashmap
@@ -535,7 +562,7 @@ int private_repo_get_task(struct private_repo *ps_private, struct task **pps_tas
 				return ERR_MUTEX_UNLOCK;
 		}
 
-		task_new(pps_task, t_, key);
+		task_new(ps_private->ps_global, pps_task, t_, key);
 		hashmap_put(ps_private->task_hashmap, key, *pps_task);
 	}
 

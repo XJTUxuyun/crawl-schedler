@@ -8,9 +8,9 @@ LIBS = -lpthread
 
 all: crawl_scheduler
 
-crawl_scheduler:	main.o	sched.o	threadpool.o	log.o	repository.o	hashmap.o	binlog.o	tools.o		cJSON.o		uuid4.o ngx_alloc.o ngx_palloc.o
+crawl_scheduler:	main.o	sched.o	threadpool.o	log.o	repository.o	hashmap.o	binlog.o	tools.o		cJSON.o		uuid4.o ngx_alloc.o ngx_palloc.o common.o
 	$(CC) $(CFLAGS) $(LIBS) -o crawl_scheduler main.o	sched.o threadpool.o	log.o	repository.o	hashmap.o	binlog.o	tools.o \
-	cJSON.o		uuid4.o	ngx_alloc.o ngx_palloc.o
+	cJSON.o		uuid4.o	ngx_alloc.o ngx_palloc.o common.o
 
 main.o:	main.c
 	$(CC) $(CFALGS) -c main.c
@@ -47,6 +47,9 @@ ngx_palloc.o:	ngx_palloc.c
 
 ngx_alloc.o:	ngx_alloc.c
 	$(CC)	$(CFLAGS) -c ngx_alloc.c
+
+common.o:	common.c
+	$(CC)	$(CFLAGS) -c common.c
 
 clean:
 	-rm crawl_scheduler

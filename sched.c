@@ -88,12 +88,13 @@ int sched_master_init(struct sched_master *p_master){
 		return -1;
 	}
 
+	/*
 	if(pthread_mutex_init(&p_master->mutex, NULL) != 0){
 		log_fatal("pthread_mutex_init() error->%s", strerror(errno));
 		close(p_master->sock_fd);
 		close(p_master->epoll_fd);
 		return -1;
-	}
+	}*/
 
 	if(p_master->master_construct(&p_master->p_global_data) == -1){
 		log_fatal("master_construct");
@@ -104,9 +105,9 @@ int sched_master_init(struct sched_master *p_master){
 
 	QUEUE_INIT(&p_master->queue);
 
-	if(pipe(p_master->pipe) == -1){
-		log_fatal("pipe() error->%s", strerror(errno));
-	}
+	// if(pipe(p_master->pipe) == -1){
+	//	log_fatal("pipe() error->%s", strerror(errno));
+	// }
 
 	set_fd_nonblock(p_master->pipe[0]);
 	
@@ -119,9 +120,9 @@ int sched_master_init(struct sched_master *p_master){
 		log_fatal("epoll_ctl() error->%s", strerror(errno));
 		close(p_master->sock_fd);
 		close(p_master->epoll_fd);
-		pthread_mutex_destroy(&p_master->mutex);
-		close(p_master->pipe[0]);
-		close(p_master->pipe[1]);
+		// pthread_mutex_destroy(&p_master->mutex);
+		// close(p_master->pipe[0]);
+		// close(p_master->pipe[1]);
 		return -1;
 	}
 
@@ -136,9 +137,9 @@ int sched_master_init(struct sched_master *p_master){
 		log_fatal("epoll_ctl() error->%s", strerror(errno));
 		close(p_master->sock_fd);
 		close(p_master->epoll_fd);
-		close(p_master->pipe[0]);
-		close(p_master->pipe[1]);
-		pthread_mutex_destroy(&p_master->mutex);
+		// close(p_master->pipe[0]);
+		// close(p_master->pipe[1]);
+		// pthread_mutex_destroy(&p_master->mutex);
 		return -1;
 	}
 	
@@ -146,9 +147,9 @@ int sched_master_init(struct sched_master *p_master){
 		log_fatal("threadpool_create() error");
 		close(p_master->sock_fd);
 		close(p_master->epoll_fd);
-		close(p_master->pipe[0]);
-		close(p_master->pipe[1]);
-		pthread_mutex_destroy(&p_master->mutex);
+		// close(p_master->pipe[0]);
+		// close(p_master->pipe[1]);
+		// pthread_mutex_destroy(&p_master->mutex);
 		return -1;
 	}
 
@@ -157,10 +158,10 @@ int sched_master_init(struct sched_master *p_master){
 		log_fatal("ngx_create_pool() error");
 		close(p_master->sock_fd);
 		close(p_master->epoll_fd);
-		close(p_master->pipe[0]);
-		close(p_master->pipe[1]);
+		// close(p_master->pipe[0]);
+		// close(p_master->pipe[1]);
 		threadpool_destroy(p_master->threadpool, 0);
-		pthread_mutex_destroy(&p_master->mutex);
+		// pthread_mutex_destroy(&p_master->mutex);
 		return -1;
 	}
 
@@ -192,9 +193,9 @@ int sched_master_free(struct sched_master *p_master){
 	
 	close(p_master->sock_fd);
 	close(p_master->epoll_fd);
-	close(p_master->pipe[0]);
-	close(p_master->pipe[1]);
-	pthread_mutex_destroy(&p_master->mutex);
+	// close(p_master->pipe[0]);
+	// close(p_master->pipe[1]);
+	// pthread_mutex_destroy(&p_master->mutex);
 	threadpool_destroy(p_master->threadpool, 0);
 	ngx_destroy_pool(p_master->mempool);
 
@@ -227,6 +228,7 @@ int sched_master_dispatch(struct sched_master *p_master){
 				continue;
 			}
 
+			/*
 			if(events[i].data.fd == p_master->pipe[0]){
 				// work done
 				if(handler_work_done(p_master) == -1){
@@ -234,7 +236,7 @@ int sched_master_dispatch(struct sched_master *p_master){
 					log_error("handler_work_done() failed->%s", strerror(errno));
 				}
 				continue;
-			}
+			}*/
 
 			if(events[i].events & EPOLLIN){
 				// new data need read
@@ -382,7 +384,7 @@ int handler_slaver_connection(struct sched_master *p_master){
 
 int handler_slaver_disconnection(struct sched_slaver *p_slaver){
 	char str[128] = {0};
-	if(p_slaver == NULL){
+	if(!p_slaver){
 		return -1;
 	}
 
@@ -395,7 +397,7 @@ int handler_slaver_disconnection(struct sched_slaver *p_slaver){
 		return -1;
 	}
 	
-	sprintf(str, "%s:%d", inet_ntoa(p_slaver->addr.sin_addr), ntohs(p_slaver->addr.sin_port));
+	log_debug(str, "%s:%d", inet_ntoa(p_slaver->addr.sin_addr), ntohs(p_slaver->addr.sin_port));
 
 	if(sched_slaver_free(p_slaver) == -1){
 		return -1;
@@ -481,6 +483,19 @@ void slaver_work_wrapper(void *arg){
 	bzero(p_slaver->res_buf, RESULT_BUFFER_LEN_MAX);
 	p_slaver->res_buf_len = p_slaver->slaver_work(p_slaver->p_master->p_global_data, p_slaver->p_private_data, p_slaver->res_buf, p_slaver->src_buf, p_slaver->src_buf_len);
 
+	// work done, modify fd status and wait to read again
+	struct epoll_event ev = {
+		.events = EPOLLOUT | EPOLLET | EPOLLONESHOT,
+		.data.ptr = p_slaver
+	};
+
+	if(epoll_ctl(p_slaver->p_master->epoll_fd, EPOLL_CTL_MOD, p_slaver->sock_fd, &ev) == -1){
+		// epoll ctl error;
+		log_error("epoll_ctl error->%s", strerror(errno));
+	}
+
+
+	/* work done, notity epoll relisten
 	if(pthread_mutex_lock(&p_slaver->p_master->mutex)){
 		log_fatal("pthread_mutex_lock() error->%s", strerror(errno));
 		return;
@@ -494,5 +509,5 @@ void slaver_work_wrapper(void *arg){
 	if(pthread_mutex_unlock(&p_slaver->p_master->mutex)){
 		log_fatal("pthread_mutex_unlock() error->%s", strerror(errno));
 		return;
-	}
+	}*/
 }
