@@ -160,7 +160,7 @@ int item_free(struct item *ps_item){
 	QUEUE_REMOVE(&ps_item->global_fifo_queue);
 	
 	if(ps_item->data)
-		free(ps_item->data);
+		;//free(ps_item->data);
 	// free(ps_item); mempool_free
 	return 0;
 }
@@ -188,7 +188,7 @@ int task_new(struct global_repo *global_repo, struct task **pps_task, struct tas
 		if(pthread_mutex_init(&(*pps_task)->mutex, NULL)){
 			log_error("initial task mutex error->%s", strerror(errno));
 			// free(*pps_task);
-			if(mempool_free(&global_repo->mempool, *pps_task))
+			mempool_free(&global_repo->mempool, *pps_task);
 			return ERR_MUTEX_INIT;
 		}
 	}else{
@@ -385,11 +385,11 @@ int task_del_item(struct task *ps_task, struct item *ps_item){
 	return 0;
 }
 
-int task_free_internal(void *item, void *data){
-	struct task *ps_task = (struct task *)item;
-	struct item *ps_item = (struct item *)data;
-	//QUEUE_INSERT_TAIL(&ps_task->ps_task)
-	return 0;
+int task_free_internal(void *data, void *item){
+	// lock contention to avoid service stop
+	struct task *ps_task = (struct task *)data;
+	struct item *ps_item = (struct item *)item;
+	return task_add_item(ps_task->ps_task, ps_item);
 }
 
 int task_free(struct task *ps_task){
@@ -402,17 +402,8 @@ int task_free(struct task *ps_task){
 	}else{
 		// indicate ps_task is a private task
 		// processing item will back into global task queue
-		if(pthread_mutex_lock(&ps_task->ps_task->mutex) != 0){
-			log_error("struct task mutex lock op error->%s", strerror(errno));
-			return ERR_MUTEX_LOCK;
-		}
-
 		hashmap_iterate(ps_task->processing_item_hashmap, task_free_internal, ps_task);
-
-		if(pthread_mutex_unlock(&ps_task->ps_task->mutex) != 0){
-			log_error("struct task mutex unlock op error->%s", strerror(errno));
-			return ERR_MUTEX_UNLOCK;
-		}
+		hashmap_free(ps_task->processing_item_hashmap);
 	}
 	
 	// free memory
@@ -426,7 +417,7 @@ int private_repo_new(struct global_repo *ps_global, struct private_repo **pps_pr
 		log_error("ps_global is null");
 		return ERR_NULL_POINTER;
 	}
-	if(mempool_alloc(&ps_global->mempool, sizeof(struct private_repo), pps_private)){
+	if(mempool_alloc(&ps_global->mempool, sizeof(struct private_repo), (void **)pps_private)){
 		log_error("malloc struct private_repo error");
 		return ERR_MALLOC;
 	}
@@ -450,8 +441,22 @@ int private_repo_new(struct global_repo *ps_global, struct private_repo **pps_pr
 	return 0;
 }
 
+int private_task_iterate(void *udata, void *task){
+	struct task *ps_task = (struct task *)task;
+	return task_free(ps_task);
+}
+
 int private_repo_del(struct private_repo *ps_private){
-	
+	// free task
+	hashmap_iterate(ps_private->task_hashmap, private_task_iterate, NULL);
+	hashmap_free(ps_private->task_hashmap);
+
+	pthread_mutex_lock(&ps_private->ps_global->repo_queue_mutex);
+	QUEUE_REMOVE(&ps_private->repo_queue);
+	pthread_mutex_unlock(&ps_private->ps_global->repo_queue_mutex);
+
+	mempool_free(&ps_private->ps_global->mempool, ps_private);
+
 	return 0;
 }
 

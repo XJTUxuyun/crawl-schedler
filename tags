@@ -4,18 +4,19 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-ALIGNMENT	slab.h	/^#define ALIGNMENT /;"	d
-API_NAME_GEN	common.h	/^#define API_NAME_GEN(/;"	d
-API_NAME_GEN	common.h	/^#undef API_NAME_GEN$/;"	d
+API_NAME_GEN	common.c	/^#define API_NAME_GEN(/;"	d	file:
+API_NAME_GEN	common.c	/^#undef API_NAME_GEN$/;"	d	file:
 API_RET	common.h	/^enum API_RET{$/;"	g
 API_RET_GEN	common.h	/^#define API_RET_GEN(/;"	d
 API_RET_GEN	common.h	/^#undef API_RET_GEN$/;"	d
 API_RET_MAP	common.h	/^	API_RET_MAP(API_RET_GEN)$/;"	e	enum:API_RET
 API_RET_MAP	common.h	/^#define API_RET_MAP(/;"	d
-API_STR_GEN	common.h	/^#define API_STR_GEN(/;"	d
-API_STR_GEN	common.h	/^#undef API_STR_GEN$/;"	d
+API_STR_GEN	common.c	/^#define API_STR_GEN(/;"	d	file:
+API_STR_GEN	common.c	/^#undef API_STR_GEN$/;"	d	file:
 CC	Makefile	/^CC = gcc -g$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -std=c99$/;"	m
+CJSON_CDECL	cJSON.h	/^#define CJSON_CDECL /;"	d
+CJSON_CDECL	cJSON.h	/^#define CJSON_CDECL$/;"	d
 CJSON_EXPORT_SYMBOLS	cJSON.h	/^#define CJSON_EXPORT_SYMBOLS$/;"	d
 CJSON_NESTING_LIMIT	cJSON.h	/^#define CJSON_NESTING_LIMIT /;"	d
 CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_Compare(const cJSON * const a, const cJSON * const b, const cJSON_bool case_sensitive)$/;"	f
@@ -33,6 +34,8 @@ CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsTrue(const cJSON * const
 CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_PrintPreallocated(cJSON *item, char *buf, const int len, const cJSON_bool fmt)$/;"	f
 CJSON_PUBLIC	cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemViaPointer(cJSON * const parent, cJSON * const item, cJSON * replacement)$/;"	f
 CJSON_PUBLIC	cJSON.h	/^#define CJSON_PUBLIC(/;"	d
+CJSON_STDCALL	cJSON.h	/^#define CJSON_STDCALL /;"	d
+CJSON_STDCALL	cJSON.h	/^#define CJSON_STDCALL$/;"	d
 CJSON_VERSION_MAJOR	cJSON.h	/^#define CJSON_VERSION_MAJOR /;"	d
 CJSON_VERSION_MINOR	cJSON.h	/^#define CJSON_VERSION_MINOR /;"	d
 CJSON_VERSION_PATCH	cJSON.h	/^#define CJSON_VERSION_PATCH /;"	d
@@ -41,10 +44,10 @@ ERROR_GEN	common.h	/^#define ERROR_GEN(/;"	d
 ERROR_GEN	common.h	/^#undef ERROR_GEN$/;"	d
 ERROR_MAP	common.h	/^	ERROR_MAP(ERROR_GEN)$/;"	e	enum:ERR
 ERROR_MAP	common.h	/^#define ERROR_MAP(/;"	d
-ERROR_NAME_GEN	common.h	/^#define ERROR_NAME_GEN(/;"	d
-ERROR_NAME_GEN	common.h	/^#undef ERROR_NAME_GEN$/;"	d
-ERROR_STR_GEN	common.h	/^#define ERROR_STR_GEN(/;"	d
-ERROR_STR_GEN	common.h	/^#undef ERROR_STR_GEN$/;"	d
+ERROR_NAME_GEN	common.c	/^#define ERROR_NAME_GEN(/;"	d	file:
+ERROR_NAME_GEN	common.c	/^#undef ERROR_NAME_GEN$/;"	d	file:
+ERROR_STR_GEN	common.c	/^#define ERROR_STR_GEN(/;"	d	file:
+ERROR_STR_GEN	common.c	/^#undef ERROR_STR_GEN$/;"	d	file:
 INITIAL_SIZE	hashmap.c	/^#define INITIAL_SIZE /;"	d	file:
 L	log.c	/^} L;$/;"	v	typeref:struct:__anon4	file:
 LIBS	Makefile	/^LIBS = -lpthread$/;"	m
@@ -56,11 +59,6 @@ LOG_INFO	log.h	/^enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG
 LOG_TRACE	log.h	/^enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };$/;"	e	enum:__anon5
 LOG_VERSION	log.h	/^#define LOG_VERSION /;"	d
 LOG_WARN	log.h	/^enum { LOG_TRACE, LOG_DEBUG, LOG_INFO, LOG_WARN, LOG_ERROR, LOG_FATAL };$/;"	e	enum:__anon5
-LV_ALERT	ncx_log.h	/^#define LV_ALERT /;"	d
-LV_DEBUG	ncx_log.h	/^#define LV_DEBUG /;"	d
-LV_ERROR	ncx_log.h	/^#define LV_ERROR /;"	d
-LV_INFO	ncx_log.h	/^#define LV_INFO /;"	d
-LV_TRACE	ncx_log.h	/^#define LV_TRACE /;"	d
 MAP_FULL	hashmap.h	/^#define MAP_FULL /;"	d
 MAP_MISSING	hashmap.h	/^#define MAP_MISSING /;"	d
 MAP_OK	hashmap.h	/^#define MAP_OK /;"	d
@@ -69,7 +67,18 @@ MAX_CHAIN_LENGTH	hashmap.c	/^#define MAX_CHAIN_LENGTH /;"	d	file:
 MAX_KEY_LENGTH	hashmap.c	/^#define MAX_KEY_LENGTH /;"	d	file:
 MAX_QUEUE	threadpool.h	/^#define MAX_QUEUE /;"	d
 MAX_THREADS	threadpool.h	/^#define MAX_THREADS /;"	d
-NCX_ALIGNMENT	ncx_core.h	/^#define NCX_ALIGNMENT /;"	d
+NGX_ABORT	ngx_palloc.h	/^#define NGX_ABORT /;"	d
+NGX_AGAIN	ngx_palloc.h	/^#define NGX_AGAIN /;"	d
+NGX_ALIGNMENT	ngx_palloc.h	/^#define NGX_ALIGNMENT /;"	d
+NGX_BUSY	ngx_palloc.h	/^#define NGX_BUSY /;"	d
+NGX_DECLINED	ngx_palloc.h	/^#define NGX_DECLINED /;"	d
+NGX_DEFAULT_POOL_SIZE	ngx_palloc.h	/^#define NGX_DEFAULT_POOL_SIZE /;"	d
+NGX_DONE	ngx_palloc.h	/^#define NGX_DONE /;"	d
+NGX_ERROR	ngx_palloc.h	/^#define NGX_ERROR /;"	d
+NGX_MAX_ALLOC_FROM_POOL	ngx_palloc.h	/^#define NGX_MAX_ALLOC_FROM_POOL /;"	d
+NGX_MIN_POOL_SIZE	ngx_palloc.h	/^#define NGX_MIN_POOL_SIZE /;"	d
+NGX_OK	ngx_palloc.h	/^#define NGX_OK /;"	d
+NGX_POOL_ALIGNMENT	ngx_palloc.h	/^#define NGX_POOL_ALIGNMENT /;"	d
 OK	common.h	/^#define OK /;"	d
 PFany	hashmap.h	/^typedef int (*PFany)(any_t, any_t);$/;"	t
 QUEUE	queue.h	/^typedef void *QUEUE[2];$/;"	t
@@ -90,28 +99,15 @@ QUEUE_PREV_NEXT	queue.h	/^#define QUEUE_PREV_NEXT(/;"	d
 QUEUE_REMOVE	queue.h	/^#define QUEUE_REMOVE(/;"	d
 QUEUE_SPLIT	queue.h	/^#define QUEUE_SPLIT(/;"	d
 RESULT_BUFFER_LEN_MAX	sched.h	/^#define RESULT_BUFFER_LEN_MAX /;"	d
-SLAB_BIG	slab.c	/^#define SLAB_BIG /;"	d	file:
-SLAB_BUSY	slab.c	/^#define SLAB_BUSY /;"	d	file:
-SLAB_EXACT	slab.c	/^#define SLAB_EXACT /;"	d	file:
-SLAB_MAP_MASK	slab.c	/^#define SLAB_MAP_MASK /;"	d	file:
-SLAB_MAP_SHIFT	slab.c	/^#define SLAB_MAP_SHIFT /;"	d	file:
-SLAB_PAGE	slab.c	/^#define SLAB_PAGE /;"	d	file:
-SLAB_PAGE_BUSY	slab.c	/^#define SLAB_PAGE_BUSY /;"	d	file:
-SLAB_PAGE_FREE	slab.c	/^#define SLAB_PAGE_FREE /;"	d	file:
-SLAB_PAGE_MASK	slab.c	/^#define SLAB_PAGE_MASK /;"	d	file:
-SLAB_PAGE_START	slab.c	/^#define SLAB_PAGE_START /;"	d	file:
-SLAB_SHIFT_MASK	slab.c	/^#define SLAB_SHIFT_MASK /;"	d	file:
-SLAB_SMALL	slab.c	/^#define SLAB_SMALL /;"	d	file:
 SOURCE_BUFFER_LEN_MAX	sched.h	/^#define SOURCE_BUFFER_LEN_MAX /;"	d
-UUID4_EFAILURE	uuid4.h	/^  UUID4_EFAILURE = -1$/;"	e	enum:__anon12
-UUID4_ESUCCESS	uuid4.h	/^  UUID4_ESUCCESS =  0,$/;"	e	enum:__anon12
+UUID4_EFAILURE	uuid4.h	/^  UUID4_EFAILURE = -1$/;"	e	enum:__anon13
+UUID4_ESUCCESS	uuid4.h	/^  UUID4_ESUCCESS =  0,$/;"	e	enum:__anon13
 UUID4_H	uuid4.h	/^#define UUID4_H$/;"	d
 UUID4_LEN	uuid4.h	/^#define UUID4_LEN /;"	d
 UUID4_VERSION	uuid4.h	/^#define UUID4_VERSION /;"	d
 _CRT_SECURE_NO_DEPRECATE	cJSON.c	/^#define _CRT_SECURE_NO_DEPRECATE$/;"	d	file:
-_NCX_CORE_H_	ncx_core.h	/^#define _NCX_CORE_H_$/;"	d
-_NCX_LOCK_H_	ncx_lock.h	/^#define _NCX_LOCK_H_$/;"	d
-_NCX_LOG_H_	ncx_log.h	/^#define _NCX_LOG_H_$/;"	d
+_NGX_ALLOC_H_INCLUDED_	ngx_alloc.h	/^#define _NGX_ALLOC_H_INCLUDED_$/;"	d
+_NGX_PALLOC_H_INCLUDED_	ngx_palloc.h	/^#define _NGX_PALLOC_H_INCLUDED_$/;"	d
 _THREADPOOL_H_	threadpool.h	/^#define _THREADPOOL_H_$/;"	d
 __BINLOG_H	binlog.h	/^#define __BINLOG_H$/;"	d
 __COMMON_H	common.h	/^#define __COMMON_H$/;"	d
@@ -119,7 +115,6 @@ __HASHMAP_H__	hashmap.h	/^#define __HASHMAP_H__$/;"	d
 __POLICY_H	policy.h	/^#define __POLICY_H$/;"	d
 __REPOSITORY_H	repository.h	/^#define __REPOSITORY_H$/;"	d
 __SCHEDULER_H	sched.h	/^#define __SCHEDULER_H$/;"	d
-__SLAB_H	slab.h	/^#define __SLAB_H$/;"	d
 __TOOLS_H	tools.h	/^#define __TOOLS_H$/;"	d
 __WINDOWS__	cJSON.h	/^#define __WINDOWS__$/;"	d
 _hashmap_element	hashmap.c	/^typedef struct _hashmap_element{$/;"	s	file:
@@ -127,20 +122,13 @@ _hashmap_map	hashmap.c	/^typedef struct _hashmap_map{$/;"	s	file:
 add_item_to_array	cJSON.c	/^static cJSON_bool add_item_to_array(cJSON *array, cJSON *item)$/;"	f	file:
 add_item_to_object	cJSON.c	/^static cJSON_bool add_item_to_object(cJSON * const object, const char * const string, cJSON * const item, const internal_hooks * const hooks, const cJSON_bool constant_key)$/;"	f	file:
 addr	sched.h	/^	struct sockaddr_in addr;$/;"	m	struct:sched_slaver	typeref:struct:sched_slaver::sockaddr_in
-addr	slab.h	/^	void *addr;$/;"	m	struct:slab_pool
-alert	ncx_log.h	/^#define alert(/;"	d
-align	slab.h	/^#define align(/;"	d
-align_ptr	slab.h	/^#define align_ptr(/;"	d
-allocate	cJSON.c	/^    void *(*allocate)(size_t size);$/;"	m	struct:internal_hooks	file:
+alloc	ngx_palloc.h	/^    void                 *alloc;$/;"	m	struct:ngx_pool_large_s
+allocate	cJSON.c	/^    void *(CJSON_CDECL *allocate)(size_t size);$/;"	m	struct:internal_hooks	file:
 any_t	hashmap.h	/^typedef void *any_t;$/;"	t
-api_code_desc	common.h	/^const char *api_code_desc(enum API_RET code){$/;"	f
-api_code_name	common.h	/^const char * api_code_name(enum API_RET code){$/;"	f
-argument	threadpool.h	/^    void *argument;$/;"	m	struct:__anon9
+api_code_desc	common.c	/^const char *api_code_desc(enum API_RET code){$/;"	f
+api_code_name	common.c	/^const char * api_code_name(enum API_RET code){$/;"	f
+argument	threadpool.h	/^    void *argument;$/;"	m	struct:__anon10
 array	cJSON.h	/^CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array);$/;"	v
-b_big	slab.h	/^	size_t b_small, b_exact, b_big, b_page;		 \/* 四种slab占用的byte数 *\/$/;"	m	struct:slab_stat
-b_exact	slab.h	/^	size_t b_small, b_exact, b_big, b_page;		 \/* 四种slab占用的byte数 *\/$/;"	m	struct:slab_stat
-b_page	slab.h	/^	size_t b_small, b_exact, b_big, b_page;		 \/* 四种slab占用的byte数 *\/$/;"	m	struct:slab_stat
-b_small	slab.h	/^	size_t b_small, b_exact, b_big, b_page;		 \/* 四种slab占用的byte数 *\/$/;"	m	struct:slab_stat
 binlog	binlog.h	/^struct binlog{$/;"	s
 boolean	cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateBool(cJSON_bool boolean);$/;"	v
 buffer	cJSON.c	/^    unsigned char *buffer;$/;"	m	struct:__anon3	file:
@@ -238,6 +226,7 @@ child	cJSON.h	/^    struct cJSON *child;$/;"	m	struct:cJSON	typeref:struct:cJSON
 child	cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child);$/;"	v
 child	cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child);$/;"	v
 cjson_min	cJSON.c	/^#define cjson_min(/;"	d	file:
+cleanup	ngx_palloc.h	/^    ngx_pool_cleanup_t   *cleanup;$/;"	m	struct:ngx_pool_s
 completed_queue	repository.c	/^	void *completed_queue[2];					\/* *\/$/;"	m	struct:global_repo	file:
 completed_queue_mutex	repository.c	/^	pthread_mutex_t completed_queue_mutex;		\/* *\/$/;"	m	struct:global_repo	file:
 content	cJSON.c	/^    const unsigned char *content;$/;"	m	struct:__anon2	file:
@@ -245,41 +234,44 @@ count	threadpool.h	/^  int count;$/;"	m	struct:threadpool_t
 crc32	hashmap.c	/^unsigned long crc32(const unsigned char *s, unsigned long len)$/;"	f
 crc32_tab	hashmap.c	/^static unsigned long crc32_tab[] = {$/;"	v	file:
 create_reference	cJSON.c	/^static cJSON *create_reference(const cJSON *item, const internal_hooks * const hooks)$/;"	f	file:
+current	ngx_palloc.h	/^    ngx_pool_t           *current;$/;"	m	struct:ngx_pool_s
+d	ngx_palloc.h	/^    ngx_pool_data_t       d;$/;"	m	struct:ngx_pool_s
 data	hashmap.c	/^	any_t data;$/;"	m	struct:_hashmap_element	file:
 data	hashmap.c	/^	hashmap_element *data;$/;"	m	struct:_hashmap_map	file:
+data	ngx_palloc.h	/^    void                 *data;$/;"	m	struct:ngx_pool_cleanup_s
 data	repository.c	/^	void *data;$/;"	m	struct:item	file:
 data_len	repository.c	/^	int data_len;$/;"	m	struct:item	file:
-deallocate	cJSON.c	/^    void (*deallocate)(void *pointer);$/;"	m	struct:internal_hooks	file:
-debug	ncx_log.h	/^#define debug(/;"	d
+deallocate	cJSON.c	/^    void (CJSON_CDECL *deallocate)(void *pointer);$/;"	m	struct:internal_hooks	file:
 depth	cJSON.c	/^    size_t depth; \/* How deeply nested (in arrays\/objects) is the input at the current offset. *\/$/;"	m	struct:__anon2	file:
 depth	cJSON.c	/^    size_t depth; \/* current nesting depth (for formatted printing) *\/$/;"	m	struct:__anon3	file:
-end	slab.h	/^	u_char *end;$/;"	m	struct:slab_pool
+end	ngx_palloc.h	/^    u_char               *end;$/;"	m	struct:__anon6
 ensure	cJSON.c	/^static unsigned char* ensure(printbuffer * const p, size_t needed)$/;"	f	file:
 epoll_fd	sched.h	/^	int epoll_fd;$/;"	m	struct:sched_master
 error	cJSON.c	/^} error;$/;"	t	typeref:struct:__anon1	file:
-error	ncx_log.h	/^#define error(/;"	d
-error_code_desc	common.h	/^const char *error_code_desc(enum ERR code){$/;"	f
-error_code_name	common.h	/^const char *error_code_name(enum ERR code){$/;"	f
+error_code_desc	common.c	/^const char *error_code_desc(enum ERR code){$/;"	f
+error_code_name	common.c	/^const char *error_code_name(enum ERR code){$/;"	f
+failed	ngx_palloc.h	/^    ngx_uint_t            failed;$/;"	m	struct:__anon6
 false	cJSON.c	/^#define false /;"	d	file:
+fd	ngx_palloc.h	/^    int              fd;$/;"	m	struct:__anon7
 fifo_queue	repository.c	/^	void *fifo_queue[2];$/;"	m	struct:task	file:
 format	cJSON.c	/^    cJSON_bool format; \/* is this print a formatted print *\/$/;"	m	struct:__anon3	file:
 fp	log.c	/^  FILE *fp;$/;"	m	struct:__anon4	file:
-free	slab.h	/^	struct slab_page free;$/;"	m	struct:slab_pool	typeref:struct:slab_pool::slab_page
-free_fn	cJSON.h	/^      void (*free_fn)(void *ptr);$/;"	m	struct:cJSON_Hooks
-free_page	slab.h	/^	size_t pages, free_page;$/;"	m	struct:slab_stat
-function	threadpool.h	/^    void (*function)(void *);$/;"	m	struct:__anon9
+free_fn	cJSON.h	/^      void (CJSON_CDECL *free_fn)(void *ptr);$/;"	m	struct:cJSON_Hooks
+function	threadpool.h	/^    void (*function)(void *);$/;"	m	struct:__anon10
 get_array_item	cJSON.c	/^static cJSON* get_array_item(const cJSON *array, size_t index)$/;"	f	file:
 get_decimal_point	cJSON.c	/^static unsigned char get_decimal_point(void)$/;"	f	file:
 get_object_item	cJSON.c	/^static cJSON *get_object_item(const cJSON * const object, const char * const name, const cJSON_bool case_sensitive)$/;"	f	file:
 global_error	cJSON.c	/^static error global_error = { NULL, 0 };$/;"	v	file:
 global_fifo_queue	repository.c	/^	void *global_fifo_queue[2];$/;"	m	struct:item	file:
 global_hooks	cJSON.c	/^static internal_hooks global_hooks = { internal_malloc, internal_free, internal_realloc };$/;"	v	file:
+global_repo	repository.c	/^	struct global_repo *global_repo;$/;"	m	struct:task	typeref:struct:task::global_repo	file:
 global_repo	repository.c	/^struct global_repo{$/;"	s	file:
 global_repo_del	repository.c	/^int global_repo_del(struct global_repo *ps_global){$/;"	f
 global_repo_new	repository.c	/^int global_repo_new(struct global_repo **pps_global){$/;"	f
 global_repository_construct	repository.c	/^int global_repository_construct(void **pp_global){$/;"	f
 global_repository_destruct	repository.c	/^int global_repository_destruct(void *p_global1){$/;"	f
-graceful_shutdown	threadpool.h	/^    graceful_shutdown  = 2$/;"	e	enum:__anon8
+graceful_shutdown	threadpool.h	/^    graceful_shutdown  = 2$/;"	e	enum:__anon9
+handler	ngx_palloc.h	/^    ngx_pool_cleanup_pt   handler;$/;"	m	struct:ngx_pool_cleanup_s
 handler_data_read	sched.c	/^int handler_data_read(struct sched_slaver *p_slaver){$/;"	f
 handler_data_write	sched.c	/^int handler_data_write(struct sched_slaver *p_slaver){$/;"	f
 handler_slaver_connection	sched.c	/^int handler_slaver_connection(struct sched_master *p_master){$/;"	f
@@ -302,18 +294,17 @@ head	threadpool.h	/^  int head;$/;"	m	struct:threadpool_t
 hooks	cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon2	file:
 hooks	cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon3	file:
 hooks	cJSON.h	/^CJSON_PUBLIC(void) cJSON_InitHooks(cJSON_Hooks* hooks);$/;"	v
-immediate_shutdown	threadpool.h	/^    immediate_shutdown = 1,$/;"	e	enum:__anon8
+immediate_shutdown	threadpool.h	/^    immediate_shutdown = 1,$/;"	e	enum:__anon9
 in_use	hashmap.c	/^	int in_use;$/;"	m	struct:_hashmap_element	file:
-info	ncx_log.h	/^#define info(/;"	d
 init_seed	uuid4.c	/^static int init_seed(void) {$/;"	f	file:
 internal_free	cJSON.c	/^#define internal_free /;"	d	file:
-internal_free	cJSON.c	/^static void internal_free(void *pointer)$/;"	f	file:
+internal_free	cJSON.c	/^static void CJSON_CDECL internal_free(void *pointer)$/;"	f	file:
 internal_hooks	cJSON.c	/^typedef struct internal_hooks$/;"	s	file:
 internal_hooks	cJSON.c	/^} internal_hooks;$/;"	t	typeref:struct:internal_hooks	file:
 internal_malloc	cJSON.c	/^#define internal_malloc /;"	d	file:
-internal_malloc	cJSON.c	/^static void *internal_malloc(size_t size)$/;"	f	file:
+internal_malloc	cJSON.c	/^static void * CJSON_CDECL internal_malloc(size_t size)$/;"	f	file:
 internal_realloc	cJSON.c	/^#define internal_realloc /;"	d	file:
-internal_realloc	cJSON.c	/^static void *internal_realloc(void *pointer, size_t size)$/;"	f	file:
+internal_realloc	cJSON.c	/^static void * CJSON_CDECL internal_realloc(void *pointer, size_t size)$/;"	f	file:
 ip	sched.h	/^	char ip[16];$/;"	m	struct:sched_master
 item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsArray(const cJSON * const item);$/;"	v
 item	cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsBool(const cJSON * const item);$/;"	v
@@ -335,6 +326,8 @@ item_new	repository.c	/^int item_new(struct task *ps_task, struct item **pps_ite
 json	cJSON.c	/^    const unsigned char *json;$/;"	m	struct:__anon1	file:
 key	hashmap.c	/^	char key[MAX_KEY_LENGTH];$/;"	m	struct:_hashmap_element	file:
 key	repository.c	/^	char key[128];$/;"	m	struct:task	file:
+large	ngx_palloc.h	/^    ngx_pool_large_t     *large;$/;"	m	struct:ngx_pool_s
+last	ngx_palloc.h	/^    u_char               *last;$/;"	m	struct:__anon6
 length	cJSON.c	/^    size_t length;$/;"	m	struct:__anon2	file:
 length	cJSON.c	/^    size_t length;$/;"	m	struct:__anon3	file:
 level	log.c	/^  int level;$/;"	m	struct:__anon4	file:
@@ -343,7 +336,6 @@ level_names	log.c	/^static const char *level_names[] = {$/;"	v	file:
 lock	log.c	/^  log_LockFn lock;$/;"	m	struct:__anon4	file:
 lock	log.c	/^static void lock(void)   {$/;"	f	file:
 lock	threadpool.h	/^  pthread_mutex_t lock;$/;"	m	struct:threadpool_t
-log	ncx_log.h	/^#define log(/;"	d
 log_LockFn	log.h	/^typedef void (*log_LockFn)(void *udata, int lock);$/;"	t
 log_debug	log.h	/^#define log_debug(/;"	d
 log_error	log.h	/^#define log_error(/;"	d
@@ -359,51 +351,77 @@ log_set_quiet	log.c	/^void log_set_quiet(int enable) {$/;"	f
 log_set_udata	log.c	/^void log_set_udata(void *udata) {$/;"	f
 log_trace	log.h	/^#define log_trace(/;"	d
 log_warn	log.h	/^#define log_warn(/;"	d
-main	bench.c	/^int main(int argc, char **argv)$/;"	f
 main	main.c	/^int main(int argc, char **argv){$/;"	f
-malloc_fn	cJSON.h	/^      void *(*malloc_fn)(size_t sz);$/;"	m	struct:cJSON_Hooks
+malloc_fn	cJSON.h	/^      void *(CJSON_CDECL *malloc_fn)(size_t sz);$/;"	m	struct:cJSON_Hooks
 map_t	hashmap.h	/^typedef any_t map_t;$/;"	t
 master_construct	sched.h	/^	int (*master_construct)(void **pp_global_data);$/;"	m	struct:sched_master
 master_destruct	sched.h	/^	int (*master_destruct)(void *p_global_data);$/;"	m	struct:sched_master
-max_free_pages	slab.h	/^	size_t max_free_pages;						 \/* 最大的连续可用page数 *\/$/;"	m	struct:slab_stat
-min_shift	slab.h	/^	size_t min_shift;$/;"	m	struct:slab_pool
-min_size	slab.h	/^	size_t min_size;$/;"	m	struct:slab_pool
-mutex	repository.c	/^		pthread_mutex_t mutex;$/;"	m	union:task::__anon7	file:
+max	ngx_palloc.h	/^    size_t                max;$/;"	m	struct:ngx_pool_s
+mempool	common.h	/^struct mempool{$/;"	s
+mempool	repository.c	/^	struct mempool mempool;$/;"	m	struct:global_repo	typeref:struct:global_repo::mempool	file:
+mempool	sched.h	/^	ngx_pool_t *mempool;$/;"	m	struct:sched_master
+mempool_alloc	common.c	/^int mempool_alloc(struct mempool *pool, size_t size, void **p){$/;"	f
+mempool_destroy	common.c	/^int mempool_destroy(struct mempool *pool){$/;"	f
+mempool_free	common.c	/^int mempool_free(struct mempool *pool, void *p){$/;"	f
+mempool_initial	common.c	/^int mempool_initial(struct mempool *pool){$/;"	f
+mutex	common.h	/^	pthread_mutex_t mutex;$/;"	m	struct:mempool
+mutex	repository.c	/^		pthread_mutex_t mutex;$/;"	m	union:task::__anon8	file:
 mutex	sched.h	/^	pthread_mutex_t mutex;$/;"	m	struct:sched_master
-mutex	slab.h	/^	ncx_shmtx_t mutex;$/;"	m	struct:slab_pool
-ncx_align	ncx_core.h	/^#define ncx_align(/;"	d
-ncx_align_ptr	ncx_core.h	/^#define ncx_align_ptr(/;"	d
-ncx_int_t	ncx_core.h	/^typedef intptr_t        ncx_int_t; $/;"	t
-ncx_memset	ncx_core.h	/^#define ncx_memset(/;"	d
-ncx_memzero	ncx_core.h	/^#define ncx_memzero(/;"	d
-ncx_shmtx_lock	ncx_lock.h	/^#define ncx_shmtx_lock(/;"	d
-ncx_shmtx_t	ncx_lock.h	/^} ncx_shmtx_t;$/;"	t	typeref:struct:__anon6
-ncx_shmtx_unlock	ncx_lock.h	/^#define ncx_shmtx_unlock(/;"	d
-ncx_uint_t	ncx_core.h	/^typedef uintptr_t       ncx_uint_t; $/;"	t
+name	ngx_palloc.h	/^    u_char               *name;$/;"	m	struct:__anon7
 next	cJSON.h	/^    struct cJSON *next;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON
-next	slab.h	/^    struct slab_page *next;$/;"	m	struct:slab_page	typeref:struct:slab_page::slab_page
+next	ngx_palloc.h	/^    ngx_pool_cleanup_t   *next;$/;"	m	struct:ngx_pool_cleanup_s
+next	ngx_palloc.h	/^    ngx_pool_large_t     *next;$/;"	m	struct:ngx_pool_large_s
+next	ngx_palloc.h	/^    ngx_pool_t           *next;$/;"	m	struct:__anon6
+ngx_align	ngx_palloc.h	/^#define ngx_align(/;"	d
+ngx_align_ptr	ngx_palloc.h	/^#define ngx_align_ptr(/;"	d
+ngx_alloc	ngx_alloc.c	/^ngx_alloc(size_t size)$/;"	f
+ngx_cacheline_size	ngx_alloc.h	/^static uintptr_t  ngx_cacheline_size;$/;"	v
+ngx_calloc	ngx_alloc.c	/^ngx_calloc(size_t size)$/;"	f
+ngx_create_pool	ngx_palloc.c	/^ngx_create_pool(size_t size)$/;"	f
+ngx_destroy_pool	ngx_palloc.c	/^ngx_destroy_pool(ngx_pool_t *pool)$/;"	f
+ngx_free	ngx_alloc.h	/^#define ngx_free /;"	d
+ngx_int_t	ngx_palloc.h	/^typedef intptr_t  ngx_int_t;$/;"	t
+ngx_memalign	ngx_alloc.c	/^ngx_memalign(size_t alignment, size_t size)$/;"	f
+ngx_memalign	ngx_alloc.h	/^#define ngx_memalign(/;"	d
+ngx_memzero	ngx_alloc.h	/^#define ngx_memzero(/;"	d
+ngx_pagesize	ngx_alloc.h	/^static uintptr_t  ngx_pagesize;$/;"	v
+ngx_pagesize_shift	ngx_alloc.h	/^static uintptr_t  ngx_pagesize_shift;$/;"	v
+ngx_palloc	ngx_palloc.c	/^ngx_palloc(ngx_pool_t *pool, size_t size)$/;"	f
+ngx_palloc_block	ngx_palloc.c	/^ngx_palloc_block(ngx_pool_t *pool, size_t size)$/;"	f	file:
+ngx_palloc_large	ngx_palloc.c	/^ngx_palloc_large(ngx_pool_t *pool, size_t size)$/;"	f	file:
+ngx_palloc_small	ngx_palloc.c	/^ngx_palloc_small(ngx_pool_t *pool, size_t size, ngx_uint_t align)$/;"	f	file:
+ngx_pcalloc	ngx_palloc.c	/^ngx_pcalloc(ngx_pool_t *pool, size_t size)$/;"	f
+ngx_pfree	ngx_palloc.c	/^ngx_pfree(ngx_pool_t *pool, void *p)$/;"	f
+ngx_pmemalign	ngx_palloc.c	/^ngx_pmemalign(ngx_pool_t *pool, size_t size, size_t alignment)$/;"	f
+ngx_pnalloc	ngx_palloc.c	/^ngx_pnalloc(ngx_pool_t *pool, size_t size)$/;"	f
+ngx_pool_cleanup_add	ngx_palloc.c	/^ngx_pool_cleanup_add(ngx_pool_t *p, size_t size)$/;"	f
+ngx_pool_cleanup_file	ngx_palloc.c	/^ngx_pool_cleanup_file(void *data)$/;"	f
+ngx_pool_cleanup_file_t	ngx_palloc.h	/^} ngx_pool_cleanup_file_t;$/;"	t	typeref:struct:__anon7
+ngx_pool_cleanup_pt	ngx_palloc.h	/^typedef void (*ngx_pool_cleanup_pt)(void *data);$/;"	t
+ngx_pool_cleanup_s	ngx_palloc.h	/^struct ngx_pool_cleanup_s {$/;"	s
+ngx_pool_cleanup_t	ngx_palloc.h	/^typedef struct ngx_pool_cleanup_s  ngx_pool_cleanup_t;$/;"	t	typeref:struct:ngx_pool_cleanup_s
+ngx_pool_data_t	ngx_palloc.h	/^} ngx_pool_data_t;$/;"	t	typeref:struct:__anon6
+ngx_pool_delete_file	ngx_palloc.c	/^ngx_pool_delete_file(void *data)$/;"	f
+ngx_pool_large_s	ngx_palloc.h	/^struct ngx_pool_large_s {$/;"	s
+ngx_pool_large_t	ngx_palloc.h	/^typedef struct ngx_pool_large_s  ngx_pool_large_t;$/;"	t	typeref:struct:ngx_pool_large_s
+ngx_pool_run_cleanup_file	ngx_palloc.c	/^ngx_pool_run_cleanup_file(ngx_pool_t *p, int fd)$/;"	f
+ngx_pool_s	ngx_palloc.h	/^struct ngx_pool_s {$/;"	s
+ngx_pool_t	ngx_palloc.h	/^typedef struct ngx_pool_s ngx_pool_t;$/;"	t	typeref:struct:ngx_pool_s
+ngx_reset_pool	ngx_palloc.c	/^ngx_reset_pool(ngx_pool_t *pool)$/;"	f
+ngx_uint_t	ngx_palloc.h	/^typedef uintptr_t ngx_uint_t;$/;"	t
 noalloc	cJSON.c	/^    cJSON_bool noalloc;$/;"	m	struct:__anon3	file:
 notify	threadpool.h	/^  pthread_cond_t notify;$/;"	m	struct:threadpool_t
 offset	cJSON.c	/^    size_t offset;$/;"	m	struct:__anon2	file:
 offset	cJSON.c	/^    size_t offset;$/;"	m	struct:__anon3	file:
-ool_size	slab.h	/^	size_t ool_size, used_size, used_pct;$/;"	m	struct:slab_stat
-p_big	slab.h	/^	size_t p_small, p_exact, p_big, p_page;		 \/* 四种slab占用的page数 *\/$/;"	m	struct:slab_stat
-p_exact	slab.h	/^	size_t p_small, p_exact, p_big, p_page;		 \/* 四种slab占用的page数 *\/$/;"	m	struct:slab_stat
 p_global	repository.c	/^#define p_global /;"	d	file:
 p_global	repository.c	/^#undef p_global$/;"	d	file:
 p_global2	repository.c	/^#define p_global2 /;"	d	file:
 p_global_data	sched.h	/^	void *p_global_data;$/;"	m	struct:sched_master
 p_master	sched.h	/^	struct sched_master *p_master;$/;"	m	struct:sched_slaver	typeref:struct:sched_slaver::sched_master
-p_page	slab.h	/^	size_t p_small, p_exact, p_big, p_page;		 \/* 四种slab占用的page数 *\/$/;"	m	struct:slab_stat
 p_private	repository.c	/^#define p_private /;"	d	file:
 p_private	repository.c	/^#undef p_private$/;"	d	file:
 p_private_data	sched.h	/^	void *p_private_data;$/;"	m	struct:sched_slaver
-p_small	slab.h	/^	size_t p_small, p_exact, p_big, p_page;		 \/* 四种slab占用的page数 *\/$/;"	m	struct:slab_stat
 pack_result	repository.c	/^int pack_result(char *res, int n, ...){$/;"	f
-pages	slab.h	/^	size_t pages, free_page;$/;"	m	struct:slab_stat
-pages	slab.h	/^	struct slab_page *pages;$/;"	m	struct:slab_pool	typeref:struct:slab_pool::slab_page
-pagesize	slab.c	/^static uintptr_t  pagesize;$/;"	v	file:
-pagesize_shift	slab.c	/^static uintptr_t  pagesize_shift;$/;"	v	file:
 parse_array	cJSON.c	/^static cJSON_bool parse_array(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:
 parse_buffer	cJSON.c	/^} parse_buffer;$/;"	t	typeref:struct:__anon2	file:
 parse_error	repository.c	/^int parse_error(char *res, char *mess){$/;"	f
@@ -415,10 +433,10 @@ parse_string	cJSON.c	/^static cJSON_bool parse_string(cJSON * const item, parse_
 parse_value	cJSON.c	/^static cJSON_bool parse_value(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:
 path	binlog.h	/^	char path[128];$/;"	m	struct:binlog
 pipe	sched.h	/^	int pipe[2];$/;"	m	struct:sched_master
+pool	common.h	/^	ngx_pool_t *pool;$/;"	m	struct:mempool
 port	sched.h	/^	int port;$/;"	m	struct:sched_master
 position	cJSON.c	/^    size_t position;$/;"	m	struct:__anon1	file:
 prev	cJSON.h	/^    struct cJSON *prev;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON
-prev	slab.h	/^    uintptr_t prev;$/;"	m	struct:slab_page
 print	cJSON.c	/^static unsigned char *print(const cJSON * const item, cJSON_bool format, const internal_hooks * const hooks)$/;"	f	file:
 print_array	cJSON.c	/^static cJSON_bool print_array(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:
 print_number	cJSON.c	/^static cJSON_bool print_number(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:
@@ -434,15 +452,14 @@ private_repo_get_task	repository.c	/^int private_repo_get_task(struct private_re
 private_repo_new	repository.c	/^int private_repo_new(struct global_repo *ps_global, struct private_repo **pps_private){$/;"	f
 private_repository_construct	repository.c	/^int private_repository_construct(void *p_global1, void **pp_private){$/;"	f
 private_repository_destruct	repository.c	/^int private_repository_destruct(void *p_global1, void *p_private1){$/;"	f
-processing_item_hashmap	repository.c	/^		void *processing_item_hashmap;$/;"	m	union:task::__anon7	file:
+processing_item_hashmap	repository.c	/^		void *processing_item_hashmap;$/;"	m	union:task::__anon8	file:
 ps_global	repository.c	/^	struct global_repo *ps_global;				\/* pointer to global_repo*\/$/;"	m	struct:private_repo	typeref:struct:private_repo::global_repo	file:
 ps_task	repository.c	/^	struct task *ps_task;		\/\/ Pointer to parent struct task, NULL indicate global task$/;"	m	struct:task	typeref:struct:task::task	file:
 queue	sched.h	/^	void *queue[2];$/;"	m	struct:sched_master
 queue	threadpool.h	/^  threadpool_task_t *queue;$/;"	m	struct:threadpool_t
 queue_size	threadpool.h	/^  int queue_size;$/;"	m	struct:threadpool_t
 quiet	log.c	/^  int quiet;$/;"	m	struct:__anon4	file:
-real_pages	slab.c	/^static uintptr_t  real_pages;$/;"	v	file:
-reallocate	cJSON.c	/^    void *(*reallocate)(void *pointer, size_t size);$/;"	m	struct:internal_hooks	file:
+reallocate	cJSON.c	/^    void *(CJSON_CDECL *reallocate)(void *pointer, size_t size);$/;"	m	struct:internal_hooks	file:
 replace_item_in_object	cJSON.c	/^static cJSON_bool replace_item_in_object(cJSON *object, const char *string, cJSON *replacement, cJSON_bool case_sensitive)$/;"	f	file:
 repo_queue	repository.c	/^	void *repo_queue[2];						\/* used for *\/$/;"	m	struct:global_repo	file:
 repo_queue	repository.c	/^	void *repo_queue[2];						\/* used for queue, *\/$/;"	m	struct:private_repo	file:
@@ -467,24 +484,6 @@ shutdown	threadpool.h	/^  int shutdown;$/;"	m	struct:threadpool_t
 size	cJSON.h	/^CJSON_PUBLIC(void *) cJSON_malloc(size_t size);$/;"	v
 size	hashmap.c	/^	int size;$/;"	m	struct:_hashmap_map	file:
 skip_utf8_bom	cJSON.c	/^static parse_buffer *skip_utf8_bom(parse_buffer * const buffer)$/;"	f	file:
-slab	slab.h	/^    uintptr_t slab;$/;"	m	struct:slab_page
-slab_alloc	slab.c	/^slab_alloc(struct slab_pool *pool, size_t size)$/;"	f
-slab_alloc_locked	slab.c	/^slab_alloc_locked(struct slab_pool *pool, size_t size)$/;"	f
-slab_alloc_pages	slab.c	/^slab_alloc_pages(struct slab_pool *pool, uintptr_t pages)$/;"	f	file:
-slab_dummy_init	slab.c	/^slab_dummy_init(struct slab_pool *pool)$/;"	f
-slab_empty	slab.c	/^slab_empty(struct slab_pool *pool, struct slab_page *page)$/;"	f	file:
-slab_exact_shift	slab.c	/^static uintptr_t  slab_exact_shift;$/;"	v	file:
-slab_exact_size	slab.c	/^static uintptr_t  slab_exact_size;$/;"	v	file:
-slab_free	slab.c	/^slab_free(struct slab_pool *pool, void *p)$/;"	f
-slab_free_locked	slab.c	/^slab_free_locked(struct slab_pool *pool, void *p)$/;"	f
-slab_free_pages	slab.c	/^slab_free_pages(struct slab_pool *pool, struct slab_page *page,$/;"	f	file:
-slab_init	slab.c	/^slab_init(struct slab_pool *pool)$/;"	f
-slab_junk	slab.c	/^#define slab_junk(/;"	d	file:
-slab_max_size	slab.c	/^static uintptr_t  slab_max_size;$/;"	v	file:
-slab_page	slab.h	/^struct slab_page{$/;"	s
-slab_pool	slab.h	/^struct slab_pool{$/;"	s
-slab_stat	slab.c	/^slab_stat(struct slab_pool *pool, struct slab_stat *stat)$/;"	f
-slab_stat	slab.h	/^struct slab_stat{$/;"	s
 slaver_construct	sched.h	/^	int (*slaver_construct)(void *p_global_data, void **pp_private_data);$/;"	m	struct:sched_master
 slaver_construct	sched.h	/^	int (*slaver_construct)(void *p_global_data, void **pp_private_data);$/;"	m	struct:sched_slaver
 slaver_destruct	sched.h	/^	int (*slaver_destruct)(void *p_global_data, void *p_private_data);$/;"	m	struct:sched_master
@@ -494,10 +493,8 @@ slaver_work	sched.h	/^	int (*slaver_work)(void *p_global_data, void *p_private_d
 slaver_work_wrapper	sched.c	/^void slaver_work_wrapper(void *arg){$/;"	f
 sock_fd	sched.h	/^	int sock_fd;$/;"	m	struct:sched_master
 sock_fd	sched.h	/^	int sock_fd;$/;"	m	struct:sched_slaver
-spin	ncx_lock.h	/^	uintptr_t spin;$/;"	m	struct:__anon6
 src_buf	sched.h	/^	char src_buf[SOURCE_BUFFER_LEN_MAX];$/;"	m	struct:sched_slaver
 src_buf_len	sched.h	/^	int src_buf_len;$/;"	m	struct:sched_slaver
-start	slab.h	/^	u_char *start;$/;"	m	struct:slab_pool
 started	threadpool.h	/^  int started;$/;"	m	struct:threadpool_t
 string	cJSON.h	/^    char *string;$/;"	m	struct:cJSON
 suffix_object	cJSON.c	/^static void suffix_object(cJSON *prev, cJSON *item)$/;"	f	file:
@@ -513,39 +510,34 @@ task_get_item	repository.c	/^int task_get_item(struct task *ps_task, struct item
 task_hashmap	repository.c	/^	void *task_hashmap;							\/* *\/$/;"	m	struct:global_repo	file:
 task_hashmap	repository.c	/^	void *task_hashmap;							\/* task hashmap,*\/$/;"	m	struct:private_repo	file:
 task_hashmap_mutex	repository.c	/^	pthread_mutex_t task_hashmap_mutex;			\/* *\/$/;"	m	struct:global_repo	file:
-task_new	repository.c	/^int task_new(struct task **pps_task, struct task *ps_task, const char *key){$/;"	f
+task_new	repository.c	/^int task_new(struct global_repo *global_repo, struct task **pps_task, struct task *ps_task, const char *key){$/;"	f
 thread_count	threadpool.h	/^  int thread_count;$/;"	m	struct:threadpool_t
 threadpool	sched.h	/^	threadpool_t *threadpool;$/;"	m	struct:sched_master
 threadpool_add	threadpool.c	/^int threadpool_add(threadpool_t *pool, void (*function)(void *),$/;"	f
 threadpool_create	threadpool.c	/^threadpool_t *threadpool_create(int thread_count, int queue_size, int flags)$/;"	f
 threadpool_destroy	threadpool.c	/^int threadpool_destroy(threadpool_t *pool, int flags)$/;"	f
-threadpool_destroy_flags_t	threadpool.h	/^} threadpool_destroy_flags_t;$/;"	t	typeref:enum:__anon11
-threadpool_error_t	threadpool.h	/^} threadpool_error_t;$/;"	t	typeref:enum:__anon10
+threadpool_destroy_flags_t	threadpool.h	/^} threadpool_destroy_flags_t;$/;"	t	typeref:enum:__anon12
+threadpool_error_t	threadpool.h	/^} threadpool_error_t;$/;"	t	typeref:enum:__anon11
 threadpool_free	threadpool.c	/^int threadpool_free(threadpool_t *pool)$/;"	f
-threadpool_graceful	threadpool.h	/^    threadpool_graceful       = 1$/;"	e	enum:__anon11
-threadpool_invalid	threadpool.h	/^    threadpool_invalid        = -1,$/;"	e	enum:__anon10
-threadpool_lock_failure	threadpool.h	/^    threadpool_lock_failure   = -2,$/;"	e	enum:__anon10
-threadpool_queue_full	threadpool.h	/^    threadpool_queue_full     = -3,$/;"	e	enum:__anon10
-threadpool_shutdown	threadpool.h	/^    threadpool_shutdown       = -4,$/;"	e	enum:__anon10
-threadpool_shutdown_t	threadpool.h	/^} threadpool_shutdown_t;$/;"	t	typeref:enum:__anon8
+threadpool_graceful	threadpool.h	/^    threadpool_graceful       = 1$/;"	e	enum:__anon12
+threadpool_invalid	threadpool.h	/^    threadpool_invalid        = -1,$/;"	e	enum:__anon11
+threadpool_lock_failure	threadpool.h	/^    threadpool_lock_failure   = -2,$/;"	e	enum:__anon11
+threadpool_queue_full	threadpool.h	/^    threadpool_queue_full     = -3,$/;"	e	enum:__anon11
+threadpool_shutdown	threadpool.h	/^    threadpool_shutdown       = -4,$/;"	e	enum:__anon11
+threadpool_shutdown_t	threadpool.h	/^} threadpool_shutdown_t;$/;"	t	typeref:enum:__anon9
 threadpool_t	threadpool.h	/^struct threadpool_t {$/;"	s
 threadpool_t	threadpool.h	/^typedef struct threadpool_t threadpool_t;$/;"	t	typeref:struct:threadpool_t
-threadpool_task_t	threadpool.h	/^} threadpool_task_t;$/;"	t	typeref:struct:__anon9
+threadpool_task_t	threadpool.h	/^} threadpool_task_t;$/;"	t	typeref:struct:__anon10
 threadpool_thread	threadpool.c	/^static void *threadpool_thread(void *threadpool)$/;"	f	file:
-threadpool_thread_failure	threadpool.h	/^    threadpool_thread_failure = -5$/;"	e	enum:__anon10
+threadpool_thread_failure	threadpool.h	/^    threadpool_thread_failure = -5$/;"	e	enum:__anon11
 threads	threadpool.h	/^  pthread_t *threads;$/;"	m	struct:threadpool_t
 timestamp	tools.c	/^long long timestamp(){$/;"	f
-trace	ncx_log.h	/^#define trace(/;"	d
 true	cJSON.c	/^#define true /;"	d	file:
 type	cJSON.h	/^    int type;$/;"	m	struct:cJSON
-u_char	ncx_core.h	/^typedef unsigned char 	u_char;$/;"	t
-u_char	slab.h	/^typedef unsigned char u_char;$/;"	t
+u_char	ngx_palloc.h	/^typedef unsigned char u_char;$/;"	t
 udata	log.c	/^  void *udata;$/;"	m	struct:__anon4	file:
 unlock	log.c	/^static void unlock(void) {$/;"	f	file:
 update_offset	cJSON.c	/^static void update_offset(printbuffer * const buffer)$/;"	f	file:
-usTime	bench.c	/^uint64_t usTime()  $/;"	f
-used_pct	slab.h	/^	size_t ool_size, used_size, used_pct;$/;"	m	struct:slab_stat
-used_size	slab.h	/^	size_t ool_size, used_size, used_pct;$/;"	m	struct:slab_stat
 utf16_literal_to_utf8	cJSON.c	/^static unsigned char utf16_literal_to_utf8(const unsigned char * const input_pointer, const unsigned char * const input_end, unsigned char **output_pointer)$/;"	f	file:
 uuid	repository.c	/^	char uuid[36];$/;"	m	struct:item	file:
 uuid4_generate	uuid4.c	/^int uuid4_generate(char *dst) {$/;"	f

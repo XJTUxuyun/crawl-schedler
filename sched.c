@@ -109,22 +109,22 @@ int sched_master_init(struct sched_master *p_master){
 	//	log_fatal("pipe() error->%s", strerror(errno));
 	// }
 
-	set_fd_nonblock(p_master->pipe[0]);
+	// set_fd_nonblock(p_master->pipe[0]);
 	
-	struct epoll_event evp = {
-		.events = EPOLLIN | EPOLLET,
-		.data.fd = p_master->pipe[0]
-	};
+	//struct epoll_event evp = {
+	//	.events = EPOLLIN | EPOLLET,
+	//	.data.fd = p_master->pipe[0]
+	//};
 	
-	if(epoll_ctl(p_master->epoll_fd, EPOLL_CTL_ADD, p_master->pipe[0], &evp) == -1){
-		log_fatal("epoll_ctl() error->%s", strerror(errno));
-		close(p_master->sock_fd);
-		close(p_master->epoll_fd);
-		// pthread_mutex_destroy(&p_master->mutex);
-		// close(p_master->pipe[0]);
-		// close(p_master->pipe[1]);
-		return -1;
-	}
+	//if(epoll_ctl(p_master->epoll_fd, EPOLL_CTL_ADD, p_master->pipe[0], &evp) == -1){
+	//	log_fatal("epoll_ctl() error->%s", strerror(errno));
+	//	close(p_master->sock_fd);
+	//	close(p_master->epoll_fd);
+	//	pthread_mutex_destroy(&p_master->mutex);
+	//	close(p_master->pipe[0]);
+	//	close(p_master->pipe[1]);
+	//	return -1;
+	//}
 
 	struct epoll_event ev = {
 		.events = EPOLLIN | EPOLLET,
@@ -293,7 +293,6 @@ int sched_slaver_init(struct sched_master *p_master, struct sched_slaver **pp_sl
 
 	if((*pp_slaver)->slaver_construct(p_master->p_global_data, &(*pp_slaver)->p_private_data) == -1){
 		//free(*pp_slaver);
-		//log_info("hhhhhhh");
 		ngx_pfree(p_master->mempool, *pp_slaver);
 		*pp_slaver = NULL;
 		return -1;
@@ -329,7 +328,8 @@ int sched_slaver_free(struct sched_slaver *p_slaver){
 
 int handler_work_done(struct sched_master *p_master){
 	struct sched_slaver *p_slaver = NULL;
-	int n = read(p_master->pipe[0], (void *)&p_slaver, sizeof(p_slaver));
+	int n;
+	// int n = read(p_master->pipe[0], (void *)&p_slaver, sizeof(p_slaver));
 
 	if(n != sizeof(p_slaver)){
 		return -1;
@@ -394,9 +394,10 @@ int handler_slaver_disconnection(struct sched_slaver *p_slaver){
 	};
 
 	if(epoll_ctl(p_slaver->p_master->epoll_fd, EPOLL_CTL_DEL, p_slaver->sock_fd, &ev) == -1){
+		log_error("epoll_ctl del fd error->%s", strerror(errno));
 		return -1;
 	}
-	
+
 	log_debug(str, "%s:%d", inet_ntoa(p_slaver->addr.sin_addr), ntohs(p_slaver->addr.sin_port));
 
 	if(sched_slaver_free(p_slaver) == -1){
@@ -408,6 +409,10 @@ int handler_slaver_disconnection(struct sched_slaver *p_slaver){
 }
 
 int handler_data_read(struct sched_slaver *p_slaver){
+	if(!p_slaver){
+		return -1;
+	}
+
 	p_slaver->src_buf_len = read(p_slaver->sock_fd, p_slaver->src_buf, SOURCE_BUFFER_LEN_MAX);
 
 	if(p_slaver->src_buf_len == -1){

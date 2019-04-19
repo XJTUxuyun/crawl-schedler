@@ -33,7 +33,7 @@ struct sched_master{
 	ngx_pool_t *mempool;
 	void *p_global_data;
 
-	int pipe[2];
+	//int pipe[2];
 
 	int (*master_construct)(void **pp_global_data);
 	int (*master_destruct)(void *p_global_data);
