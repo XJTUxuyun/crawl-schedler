@@ -17,8 +17,6 @@ int sched_slaver_init(struct sched_master *p_master, struct sched_slaver **pp_sl
 
 int sched_slaver_free(struct sched_slaver *p_slaver);
 
-int handler_work_done(struct sched_master *p_master);
-
 int handler_slaver_connection(struct sched_master *p_master);
 
 int handler_slaver_disconnection(struct sched_slaver *p_slaver);
@@ -34,31 +32,37 @@ void slaver_work_wrapper(void *arg);
 int sched_master_init(struct sched_master *p_master){
 	if(p_master->master_construct == NULL){
 		log_fatal("need set master_construct function");
+		p_master->run_flag = 0;
 		return -1;
 	}
 
 	if(p_master->master_destruct == NULL){
 		log_fatal("need set master_destruct function");
+		p_master->run_flag = 0;
 		return -1;
 	}
 
 	if(p_master->slaver_construct == NULL){
 		log_fatal("need set slaver_construct function");
+		p_master->run_flag = 0;
 		return -1;
 	}
 
 	if(p_master->slaver_destruct == NULL){
 		log_fatal("need set slaver_destruct function");
+		p_master->run_flag = 0;
 		return -1;
 	}
 
 	if(p_master->slaver_work == NULL){
 		log_fatal("need set slaver_work function");
+		p_master->run_flag = 0;
 		return -1;
 	}
 
 	if((p_master->sock_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1){
 		log_fatal("socket() error->%s", strerror(errno));
+		p_master->run_flag = 0;
 		return -1;
 	};
 
@@ -70,61 +74,27 @@ int sched_master_init(struct sched_master *p_master){
 
 	if(bind(p_master->sock_fd, (struct sockaddr *)&addr, sizeof(addr)) == -1){
 		log_fatal("bind() error->%s", strerror(errno));
-		close(p_master->sock_fd);
-		return -1;
+		goto failed;
 	}
 
 	if(listen(p_master->sock_fd, 100) == -1){
 		log_fatal("listen() error->%s", strerror(errno));
-		close(p_master->sock_fd);
-		return -1;
-	}	
+		goto failed;
+	}
 
 	set_fd_nonblock(p_master->sock_fd);
 
 	if((p_master->epoll_fd = epoll_create(10)) == -1){
 		log_fatal("epoll_create() error->%s", strerror(errno));
-		close(p_master->sock_fd);
-		return -1;
+		goto failed;
 	}
-
-	/*
-	if(pthread_mutex_init(&p_master->mutex, NULL) != 0){
-		log_fatal("pthread_mutex_init() error->%s", strerror(errno));
-		close(p_master->sock_fd);
-		close(p_master->epoll_fd);
-		return -1;
-	}*/
 
 	if(p_master->master_construct(&p_master->p_global_data) == -1){
 		log_fatal("master_construct");
-		close(p_master->sock_fd);
-		close(p_master->epoll_fd);
-		return -1;
+		goto failed;
 	}
 
 	QUEUE_INIT(&p_master->queue);
-
-	// if(pipe(p_master->pipe) == -1){
-	//	log_fatal("pipe() error->%s", strerror(errno));
-	// }
-
-	// set_fd_nonblock(p_master->pipe[0]);
-	
-	//struct epoll_event evp = {
-	//	.events = EPOLLIN | EPOLLET,
-	//	.data.fd = p_master->pipe[0]
-	//};
-	
-	//if(epoll_ctl(p_master->epoll_fd, EPOLL_CTL_ADD, p_master->pipe[0], &evp) == -1){
-	//	log_fatal("epoll_ctl() error->%s", strerror(errno));
-	//	close(p_master->sock_fd);
-	//	close(p_master->epoll_fd);
-	//	pthread_mutex_destroy(&p_master->mutex);
-	//	close(p_master->pipe[0]);
-	//	close(p_master->pipe[1]);
-	//	return -1;
-	//}
 
 	struct epoll_event ev = {
 		.events = EPOLLIN | EPOLLET,
@@ -135,40 +105,36 @@ int sched_master_init(struct sched_master *p_master){
 
 	if(epoll_ctl(p_master->epoll_fd, EPOLL_CTL_ADD, p_master->sock_fd, &ev) == -1){
 		log_fatal("epoll_ctl() error->%s", strerror(errno));
-		close(p_master->sock_fd);
-		close(p_master->epoll_fd);
-		// close(p_master->pipe[0]);
-		// close(p_master->pipe[1]);
-		// pthread_mutex_destroy(&p_master->mutex);
-		return -1;
+		goto failed;
 	}
-	
+
+	// threadpool
+	p_master->threadpool = NULL;
 	if((p_master->threadpool = threadpool_create(4, 64, 0)) == NULL){
 		log_fatal("threadpool_create() error");
-		close(p_master->sock_fd);
-		close(p_master->epoll_fd);
-		// close(p_master->pipe[0]);
-		// close(p_master->pipe[1]);
-		// pthread_mutex_destroy(&p_master->mutex);
-		return -1;
+		goto failed;
 	}
 
 	// 1Mb mempory pool for sched
+	p_master->mempool = NULL;
 	if(!(p_master->mempool = ngx_create_pool(1024000))){
 		log_fatal("ngx_create_pool() error");
-		close(p_master->sock_fd);
-		close(p_master->epoll_fd);
-		// close(p_master->pipe[0]);
-		// close(p_master->pipe[1]);
-		threadpool_destroy(p_master->threadpool, 0);
-		// pthread_mutex_destroy(&p_master->mutex);
-		return -1;
+		goto failed;
 	}
-
 
 	p_master->run_flag = 1;
 
 	return 0;
+
+failed:
+	close(p_master->sock_fd);
+	close(p_master->epoll_fd);
+	if(p_master->threadpool)
+		threadpool_destroy(p_master->threadpool, 0);
+	if(p_master->mempool)
+		ngx_destroy_pool(p_master->mempool);
+	p_master->run_flag = 0;
+	return -1;
 }
 
 int sched_master_free(struct sched_master *p_master){
@@ -192,13 +158,15 @@ int sched_master_free(struct sched_master *p_master){
 	}
 	
 	close(p_master->sock_fd);
+	// sock_fd need remove from epoll?
 	close(p_master->epoll_fd);
-	// close(p_master->pipe[0]);
-	// close(p_master->pipe[1]);
-	// pthread_mutex_destroy(&p_master->mutex);
-	threadpool_destroy(p_master->threadpool, 0);
-	ngx_destroy_pool(p_master->mempool);
+	if(p_master->threadpool)
+		threadpool_destroy(p_master->threadpool, 0);
 
+	if(p_master->mempool)
+		ngx_destroy_pool(p_master->mempool);
+
+	log_info("sched master free success");
 	return 0;
 }
 
@@ -228,16 +196,6 @@ int sched_master_dispatch(struct sched_master *p_master){
 				continue;
 			}
 
-			/*
-			if(events[i].data.fd == p_master->pipe[0]){
-				// work done
-				if(handler_work_done(p_master) == -1){
-					// error
-					log_error("handler_work_done() failed->%s", strerror(errno));
-				}
-				continue;
-			}*/
-
 			if(events[i].events & EPOLLIN){
 				// new data need read
 				if(handler_data_read((struct sched_slaver *)events[i].data.ptr) == -1){
@@ -264,11 +222,11 @@ int sched_master_dispatch(struct sched_master *p_master){
 }
 
 int sched_slaver_init(struct sched_master *p_master, struct sched_slaver **pp_slaver){
-	if(p_master == NULL){
+	if(!p_master){
 		return -1;
 	}
 
-	if(*pp_slaver != NULL){
+	if(*pp_slaver){
 		return -1;
 	}
 
@@ -283,15 +241,15 @@ int sched_slaver_init(struct sched_master *p_master, struct sched_slaver **pp_sl
 	(*pp_slaver)->slaver_construct = p_master->slaver_construct;
 	(*pp_slaver)->slaver_destruct = p_master->slaver_destruct;
 	(*pp_slaver)->slaver_work = p_master->slaver_work;
-	
+
 	QUEUE_INIT(&(*pp_slaver)->wq);
 	QUEUE_INSERT_TAIL(&p_master->queue, &(*pp_slaver)->wq);
 
-	if((*pp_slaver)->slaver_construct == NULL){
+	if(!(*pp_slaver)->slaver_construct){
 		return 0;
 	}
 
-	if((*pp_slaver)->slaver_construct(p_master->p_global_data, &(*pp_slaver)->p_private_data) == -1){
+	if((*pp_slaver)->slaver_construct(p_master->p_global_data, &(*pp_slaver)->p_private_data)){
 		//free(*pp_slaver);
 		ngx_pfree(p_master->mempool, *pp_slaver);
 		*pp_slaver = NULL;
@@ -302,55 +260,29 @@ int sched_slaver_init(struct sched_master *p_master, struct sched_slaver **pp_sl
 }
 
 int sched_slaver_free(struct sched_slaver *p_slaver){
-	if(p_slaver == NULL){
+	if(!p_slaver){
 		return 0;
 	}
 
 	QUEUE_REMOVE(&p_slaver->wq);
-	
+
 	if(close(p_slaver->sock_fd) == -1){
 		log_error("close() error->%s", strerror(errno));
 	}
 
-	if(p_slaver->slaver_destruct != NULL){
+	if(p_slaver->slaver_destruct){
 		int ret = p_slaver->slaver_destruct(p_slaver->p_master->p_global_data, p_slaver->p_private_data);
-		if(ret == -1){
+		if(ret){
 			//free(p_slaver);
-			ngx_pfree(p_slaver->p_master->mempool, p_slaver);
-			return -1;
+			log_error("slaver_destruct failed");
 		}
 	}
 
 	//free(p_slaver);
 	ngx_pfree(p_slaver->p_master->mempool, p_slaver);
+	log_info("slaver->%s:%d free", inet_ntoa(p_slaver->addr.sin_addr), ntohs(p_slaver->addr.sin_port));
 	return 0;
 }
-
-int handler_work_done(struct sched_master *p_master){
-	struct sched_slaver *p_slaver = NULL;
-	int n;
-	// int n = read(p_master->pipe[0], (void *)&p_slaver, sizeof(p_slaver));
-
-	if(n != sizeof(p_slaver)){
-		return -1;
-	}
-
-	if(p_slaver == NULL){
-		return -1;
-	}
-
-	struct epoll_event ev = {
-		.events = EPOLLOUT | EPOLLET | EPOLLONESHOT,
-		.data.ptr = p_slaver
-	};
-
-	if(epoll_ctl(p_master->epoll_fd, EPOLL_CTL_MOD, p_slaver->sock_fd, &ev) == -1){
-		// epoll ctl error;
-		return -1;
-	}
-
-	return 0;
-};
 
 int handler_slaver_connection(struct sched_master *p_master){
 	// create new slaver
@@ -377,8 +309,8 @@ int handler_slaver_connection(struct sched_master *p_master){
 		sched_slaver_free(p_slaver);
 		return -1;
 	}
-	
-	log_debug("connection->%s:%d success", inet_ntoa(p_slaver->addr.sin_addr), ntohs(p_slaver->addr.sin_port));
+
+	log_info("connection->%s:%d success", inet_ntoa(p_slaver->addr.sin_addr), ntohs(p_slaver->addr.sin_port));
 	return 0;
 }
 
@@ -427,6 +359,7 @@ int handler_data_read(struct sched_slaver *p_slaver){
 	}
 	
 	if(threadpool_add(p_slaver->p_master->threadpool, slaver_work_wrapper, p_slaver, 0) != 0){
+		log_error("threadpool add task error");
 		return -1;
 	}
 
@@ -434,7 +367,7 @@ int handler_data_read(struct sched_slaver *p_slaver){
 }
 
 int handler_data_write(struct sched_slaver *p_slaver){
-	if(p_slaver == NULL){
+	if(!p_slaver){
 		return -1;
 	}
 
@@ -448,7 +381,6 @@ int handler_data_write(struct sched_slaver *p_slaver){
 		if(n < p_slaver->res_buf_len){
 			log_error("some data hasnot write");
 		}
-		
 	}
 
 	struct epoll_event ev = {
@@ -457,6 +389,7 @@ int handler_data_write(struct sched_slaver *p_slaver){
 	};
 
 	if(epoll_ctl(p_slaver->p_master->epoll_fd, EPOLL_CTL_MOD, p_slaver->sock_fd, &ev) == -1){
+		log_error("epoll_ctl set slaver read error->%s this slaver cannot read data forever", strerror(errno));
 		return -1;
 	}
 
@@ -496,23 +429,6 @@ void slaver_work_wrapper(void *arg){
 
 	if(epoll_ctl(p_slaver->p_master->epoll_fd, EPOLL_CTL_MOD, p_slaver->sock_fd, &ev) == -1){
 		// epoll ctl error;
-		log_error("epoll_ctl error->%s", strerror(errno));
+		log_error("epoll_ctl error->%s this slaver cannot send data forever", strerror(errno));
 	}
-
-
-	/* work done, notity epoll relisten
-	if(pthread_mutex_lock(&p_slaver->p_master->mutex)){
-		log_fatal("pthread_mutex_lock() error->%s", strerror(errno));
-		return;
-	}
-	
-	int n = write(p_slaver->p_master->pipe[1], (void *)&p_slaver, sizeof(p_slaver));
-	if(n == -1){
-		log_fatal("write() error->%s", strerror(errno));
-	}
-
-	if(pthread_mutex_unlock(&p_slaver->p_master->mutex)){
-		log_fatal("pthread_mutex_unlock() error->%s", strerror(errno));
-		return;
-	}*/
 }

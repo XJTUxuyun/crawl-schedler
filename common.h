@@ -19,6 +19,7 @@
 	XX(-7, QUEUE_EMPTY, "queue is empty")						\
 	XX(-8, JSON_OP, "json error")								\
 	XX(-9, MEMPOOL, "memory pool error")						\
+	XX(-10, HASHMAP, "hashmap error")							\
 	XX(1, UNKNOW, "unknow error")
 
 #define ERROR_GEN(val, name, str)	ERR_##name = val,

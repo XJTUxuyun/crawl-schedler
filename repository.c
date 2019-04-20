@@ -54,9 +54,7 @@ struct global_repo{
 
 int item_new(struct task *ps_task, struct item **pps_item, void *data, int len);
 
-int item_add_data(struct item *ps_item, const void *data, int len);
-
-int item_del(struct item *ps_item);
+int item_del(struct task *ps_task, struct item *ps_item);
 
 int task_new(struct global_repo *global_repo, struct task **pps_task, struct task *ps_task, const char *key);
 
@@ -103,12 +101,18 @@ int item_new(struct task *ps_task, struct item **pps_item, void *data, int len){
 	// generate uuid
 	uuid4_generate((*pps_item)->uuid);
 
-	int r = item_add_data(*pps_item, data, len);
-	if(r){
+	if(mempool_alloc(&ps_task->global_repo->mempool, len + 1, &(*pps_item)->data)){
 		mempool_free(&ps_task->global_repo->mempool, *pps_item);
-		//free(*pps_item);
-		return r;
+		return ERR_MEMPOOL;
 	}
+	memcpy((*pps_item)->data, data, len);
+	(*pps_item)->data_len = len;
+	//int r = item_add_data(*pps_item, data, len);
+	//if(r){
+	//	mempool_free(&ps_task->global_repo->mempool, *pps_item);
+	//	//free(*pps_item);
+	//	return r;
+	//}
 
 	// different queue type should hanlder seperate
 	// handler fifo queue
@@ -138,28 +142,15 @@ int item_new(struct task *ps_task, struct item **pps_item, void *data, int len){
 	return 0;
 }
 
-int item_add_data(struct item *ps_item, const void *data, int len){
-	if(!ps_item)
-		return ERR_NULL_POINTER;
-	if((ps_item->data = (void *)malloc(len + 1)) == NULL){
-		log_error("malloc item data error");
-		return ERR_MALLOC;
-	}
-
-	bzero(ps_item->data, len  + 1);
-
-	memcpy(ps_item->data, data, len);
-	return 0;
-}
-
-int item_free(struct item *ps_item){
-	if(!ps_item)
+int item_del(struct task *ps_task, struct item *ps_item){
+	if(!ps_item || !ps_task)
 		return ERR_NULL_POINTER;
 	
 	QUEUE_REMOVE(&ps_item->private_fifo_queue);
 	QUEUE_REMOVE(&ps_item->global_fifo_queue);
 	
 	if(ps_item->data)
+		mempool_free(&ps_task->global_repo->mempool, ps_item->data);
 		;//free(ps_item->data);
 	// free(ps_item); mempool_free
 	return 0;
@@ -197,6 +188,10 @@ int task_new(struct global_repo *global_repo, struct task **pps_task, struct tas
 		// used for temprory stored processing item
 		// hashmap new success?
 		(*pps_task)->processing_item_hashmap = hashmap_new();
+		if(!(*pps_task)->processing_item_hashmap){
+			mempool_free(&global_repo->mempool, *pps_task);
+			return ERR_HASHMAP;
+		}
 	}
 
 	return 0;
@@ -431,6 +426,8 @@ int private_repo_new(struct global_repo *ps_global, struct private_repo **pps_pr
 	(*pps_private)->ps_global = ps_global;
 
 	(*pps_private)->task_hashmap = hashmap_new();
+	if(!(*pps_private)->task_hashmap)
+		return ERR_HASHMAP;
 
 	QUEUE_INIT(&(*pps_private)->repo_queue);
 
@@ -505,6 +502,9 @@ int global_repo_new(struct global_repo **pps_global){
 }
 
 int global_repo_del(struct global_repo *ps_global){
+	if(!ps_global)
+		return ERR_NULL_POINTER;
+	free(ps_global);
 	return 0;
 }
 

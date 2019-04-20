@@ -27,13 +27,10 @@ struct sched_master{
 	int epoll_fd;
 
 	void *queue[2];
-	pthread_mutex_t mutex;
 
 	threadpool_t *threadpool;
 	ngx_pool_t *mempool;
 	void *p_global_data;
-
-	//int pipe[2];
 
 	int (*master_construct)(void **pp_global_data);
 	int (*master_destruct)(void *p_global_data);
