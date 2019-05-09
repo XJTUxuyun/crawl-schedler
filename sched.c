@@ -131,8 +131,10 @@ failed:
 	close(p_master->epoll_fd);
 	if(p_master->threadpool)
 		threadpool_destroy(p_master->threadpool, 0);
+
 	if(p_master->mempool)
 		ngx_destroy_pool(p_master->mempool);
+
 	p_master->run_flag = 0;
 	return -1;
 }
@@ -183,6 +185,7 @@ int sched_master_dispatch(struct sched_master *p_master){
 			continue;
 		}else if(nfds == 0){
 			// timeout
+			// inspector
 			continue;
 		}
 

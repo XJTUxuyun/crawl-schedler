@@ -7,6 +7,7 @@
 #include "uuid4.h"
 
 #include <errno.h>
+#include <time.h>
 
 struct item{
 	char uuid[36];
@@ -17,6 +18,10 @@ struct item{
 	int retry_times;
 	int data_len;
 	void *data;
+
+	time_t ctime;
+	time_t atime;
+	time_t mtime;
 };
 
 struct task{
@@ -48,6 +53,7 @@ struct global_repo{
 
 	pthread_mutex_t completed_queue_mutex;		/* */
 	void *completed_queue[2];					/* */
+	int completed_queue_size;
 
 	struct mempool mempool;
 };
@@ -70,25 +76,36 @@ int task_del(struct task *ps_task);
 
 int private_repo_new(struct global_repo *ps_global, struct private_repo **pps_private);
 
+int private_task_iterate(void *udata, void *task);
+
 int private_repo_del(struct private_repo *ps_private);
+
+int private_repo_del(struct private_repo *p_private);
 
 int global_repo_new(struct global_repo **pps_global);
 
+int global_task_iterate(void *udata, void *task);
+
 int global_repo_del(struct global_repo *ps_global);
+
+int global_repo_inspector(struct global_repo *p_global);
 
 int repo_work(struct global_repo *ps_global, struct private_repo *ps_private, char *res, char *src, int src_len);
 
 int parse_req(const cJSON *req, const char *filed, void **value);
-
-int parse_error(char *res, char *mess);
 
 int private_repo_get_task(struct private_repo *ps_private, struct task **pps_task, char *key);
 
 int pack_result(char *res, int n, ...);
 
 int item_new(struct task *ps_task, struct item **pps_item, void *data, int len){
-	if(!ps_task)
+	if(!ps_task || !data)
 		return ERR_NULL_POINTER;
+
+	if(!ps_task->ps_task){
+		log_error("only private task can new item");
+		return ERR_NULL_POINTER;
+	}
 
 	if(mempool_alloc(&ps_task->global_repo->mempool, sizeof(struct item), (void **)pps_item)){
 		return ERR_MEMPOOL;
@@ -101,18 +118,17 @@ int item_new(struct task *ps_task, struct item **pps_item, void *data, int len){
 	// generate uuid
 	uuid4_generate((*pps_item)->uuid);
 
+	// ctime
+	time(&(*pps_item)->ctime);
+	(*pps_item)->mtime = (*pps_item)->ctime;
+	(*pps_item)->atime = (*pps_item)->ctime;
+
 	if(mempool_alloc(&ps_task->global_repo->mempool, len + 1, &(*pps_item)->data)){
 		mempool_free(&ps_task->global_repo->mempool, *pps_item);
 		return ERR_MEMPOOL;
 	}
 	memcpy((*pps_item)->data, data, len);
 	(*pps_item)->data_len = len;
-	//int r = item_add_data(*pps_item, data, len);
-	//if(r){
-	//	mempool_free(&ps_task->global_repo->mempool, *pps_item);
-	//	//free(*pps_item);
-	//	return r;
-	//}
 
 	// different queue type should hanlder seperate
 	// handler fifo queue
@@ -151,8 +167,9 @@ int item_del(struct task *ps_task, struct item *ps_item){
 	
 	if(ps_item->data)
 		mempool_free(&ps_task->global_repo->mempool, ps_item->data);
-		;//free(ps_item->data);
+		//free(ps_item->data);
 	// free(ps_item); mempool_free
+	mempool_free(&ps_task->global_repo->mempool, ps_item);
 	return 0;
 }
 
@@ -268,8 +285,10 @@ int task_get_item(struct task *ps_task, struct item **pps_item){
 			ret = task_get_item(ps_task->ps_task, pps_item);
 
 		// add item to processing_item_hashmap
-		if(*pps_item)
+		if(*pps_item){
 			hashmap_put(ps_task->processing_item_hashmap, (*pps_item)->uuid, *pps_item);
+			time(&(*pps_item)->atime);
+		}
 
 	}else{
 		// indicate this is a global task
@@ -328,6 +347,7 @@ int task_ack_item(struct global_repo *ps_global, struct task *ps_task, char *uui
 		hashmap_remove(ps_task->processing_item_hashmap, uuid);
 		QUEUE_INIT(&ps_item->global_fifo_queue);
 		QUEUE_INSERT_TAIL(&ps_global->completed_queue, &ps_item->global_fifo_queue);
+		ps_global->completed_queue_size++;
 
 		if(pthread_mutex_unlock(&ps_global->completed_queue_mutex) != 0){
 			log_error("unlock completed_queue_mutex error->%s", strerror(errno));
@@ -336,6 +356,7 @@ int task_ack_item(struct global_repo *ps_global, struct task *ps_task, char *uui
 	}else{
 		// failed, item back to queue
 		ps_item->retry_times++;
+		time(&ps_item->mtime);
 		return task_add_item(ps_task, ps_item);
 	}
 
@@ -408,7 +429,7 @@ int task_free(struct task *ps_task){
 }
 
 int private_repo_new(struct global_repo *ps_global, struct private_repo **pps_private){
-	if(ps_global == NULL){
+	if(!ps_global){
 		log_error("ps_global is null");
 		return ERR_NULL_POINTER;
 	}
@@ -458,9 +479,9 @@ int private_repo_del(struct private_repo *ps_private){
 }
 
 int global_repo_new(struct global_repo **pps_global){
-	// mempool is unvariable new
+	// mempool is unvariable now
 	if((*pps_global = (struct global_repo *)malloc(sizeof(struct global_repo))) == NULL){
-		log_error("malloc struct global_repo error");
+		log_fatal("malloc struct global_repo error");
 		return ERR_NULL_POINTER;
 	}
 
@@ -469,10 +490,14 @@ int global_repo_new(struct global_repo **pps_global){
 	QUEUE_INIT(&(*pps_global)->repo_queue);
 	QUEUE_INIT(&(*pps_global)->completed_queue);
 
-	(*pps_global)->task_hashmap = hashmap_new();
+	if(!((*pps_global)->task_hashmap = hashmap_new())){
+		log_fatal("create global task hashmap error");
+		return ERR_HASHMAP;
+	}
 
 	if(mempool_initial(&(*pps_global)->mempool) != OK){
 		log_fatal("initial repo mempool error");
+		hashmap_free((*pps_global)->task_hashmap);
 		return ERR_MEMPOOL;
 	}
 
@@ -501,9 +526,23 @@ int global_repo_new(struct global_repo **pps_global){
 	return 0;
 }
 
+int global_task_iterate(void *udata, void *task){
+	struct task *ps_task = (struct task *)task;
+	return task_free(ps_task);
+}
+
 int global_repo_del(struct global_repo *ps_global){
 	if(!ps_global)
 		return ERR_NULL_POINTER;
+
+	hashmap_iterate(ps_global->task_hashmap, global_task_iterate, NULL);
+
+	pthread_mutex_destroy(&ps_global->task_hashmap_mutex);
+	pthread_mutex_destroy(&ps_global->completed_queue_mutex);
+	pthread_mutex_destroy(&ps_global->repo_queue_mutex);
+
+	hashmap_free(ps_global->task_hashmap);
+	mempool_destroy(&ps_global->mempool);
 	free(ps_global);
 	return 0;
 }
@@ -519,30 +558,6 @@ int parse_req(const cJSON *req, const char *filed, void **value){
 	return strlen(*value);
 }
 
-int parse_error(char *res, char *mess){
-	cJSON *ret = cJSON_CreateObject();
-	if(ret == NULL){
-		return -1;
-	}
-	
-	cJSON *m = NULL;
-	if((m = cJSON_CreateStringReference(mess)) == NULL){
-		cJSON_Delete(ret);
-		return ERR_JSON_OP;
-	}
-
-	cJSON_AddItemToObject(ret, "ret", m);
-	
-	if(cJSON_PrintPreallocated(ret, res, 5120, 0) == 0){
-		// render json to string failed;
-		cJSON_Delete(ret);
-		return ERR_JSON_OP;
-	}
-	cJSON_Delete(m);
-	cJSON_Delete(ret);
-	return strlen(res);
-}
-
 int private_repo_get_task(struct private_repo *ps_private, struct task **pps_task, char *key){
 	if(!ps_private || !key)
 		return ERR_NULL_POINTER;
@@ -552,20 +567,21 @@ int private_repo_get_task(struct private_repo *ps_private, struct task **pps_tas
 		// task not is private repo task hashmap, should create a new struct task
 		// check task exist in global repo task hashmap
 		struct task *t_ = NULL;
+
+		// lock hashmap
+		if(pthread_mutex_lock(&ps_private->ps_global->task_hashmap_mutex))
+			return ERR_MUTEX_LOCK;
+
 		if(hashmap_get(ps_private->ps_global->task_hashmap, key, (void **)&t_) == MAP_MISSING){
 			// task is not in global repo task hashmap
 			// create task and put into global task hashmap
-			// lock hashmap
-			if(pthread_mutex_lock(&ps_private->ps_global->task_hashmap_mutex))
-				return ERR_MUTEX_LOCK;
-
 			task_new(ps_private->ps_global, &t_, NULL, key);
 			hashmap_put(ps_private->ps_global->task_hashmap, key, t_);
-
-			// unlock hashmap
-			if(pthread_mutex_unlock(&ps_private->ps_global->task_hashmap_mutex))
-				return ERR_MUTEX_UNLOCK;
 		}
+
+		// unlock hashmap
+		if(pthread_mutex_unlock(&ps_private->ps_global->task_hashmap_mutex))
+			return ERR_MUTEX_UNLOCK;
 
 		task_new(ps_private->ps_global, pps_task, t_, key);
 		hashmap_put(ps_private->task_hashmap, key, *pps_task);
@@ -719,7 +735,7 @@ int repo_work(struct global_repo *ps_global, struct private_repo *ps_private, ch
 
 int global_repository_construct(void **pp_global){
 #define p_global (**(struct global_repo ***)&pp_global)
-	
+
 	if(global_repo_new(&p_global) == -1){
 		goto failed;
 	}
@@ -736,19 +752,25 @@ failed:
 
 int global_repository_destruct(void *p_global1){
 #define p_global (*(struct global_repo **)&p_global1)
-	
+
 	if(global_repo_del(p_global) == -1){
 		goto failed;
 	}
 
 	log_info("global_repository_destruct success");
-	
+
 #undef p_global
 	return 0;
 
 failed:
 #undef p_global
 	return -1;
+}
+
+int global_repository_inspector(void *p_global1){
+#define p_global (*(struct global_repo **)&p_global1)
+
+#undef p_global
 }
 
 int private_repository_construct(void *p_global1, void **pp_private){
@@ -771,6 +793,26 @@ failed:
 }
 
 int private_repository_destruct(void *p_global1, void *p_private1){
+#define p_global (*(struct global_repo **)&p_global1)
+#define p_private (*(struct private_repo **)&p_private1)
+
+	if(private_repo_del(p_private) == -1){
+		goto failed;
+	}
+
+	log_info("private repository destruct success");
+
+#undef p_private
+#undef p_global
+	return 0;
+
+failed:
+#undef p_private
+#undef p_global
+	return -1;
+}
+
+int private_repository_inspector(void *p_global1, void *p_private1){
 #define p_global (*(struct global_repo **)&p_global1)
 #define p_private (*(struct private_repo **)&p_private1)
 

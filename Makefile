@@ -1,6 +1,6 @@
 CC = gcc -g
 
-CFLAGS = -std=c99
+CFLAGS = -std=c11
 
 LIBS = -lpthread
 
